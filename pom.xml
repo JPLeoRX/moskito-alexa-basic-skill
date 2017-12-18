@@ -9,9 +9,16 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <property name="disableRequestSignatureCheck" value="false"/>
+        <property name="supportedApplicationIds" value=""/>
+        <property name="timestampTolerance" value="150"/>
+
         <aws-lambda.version>1.0.0</aws-lambda.version>
         <alexa-skills-kit.version>1.5.0</alexa-skills-kit.version>
         <jetty.version>9.0.6.v20130930</jetty.version>
+        <log4j.version>2.10.0</log4j.version>
+        <slf4j.version>1.7.10</slf4j.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
@@ -22,7 +29,7 @@
             <version>1.11.2</version>
         </dependency>
 
-        <!-- Amazon Alexa -->
+        <!-- Amazon Alexa Skills Kit -->
         <dependency>
             <groupId>com.amazon.alexa</groupId>
             <artifactId>alexa-skills-kit</artifactId>
@@ -64,31 +71,54 @@
             <version>${jetty.version}</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.0</version>
-        </dependency>
 
         <!-- Log4J -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.10.0</version>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.10.0</version>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- Slf4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Apache -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.studio</groupId>
+            <artifactId>org.apache.commons.io</artifactId>
+            <version>2.4</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -7,6 +7,8 @@ import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 
 public interface SpeechletResponseLogic {
+    // Response Logic
+    //------------------------------------------------------------------------------------------------------------------
     SpeechletResponse getWelcomeResponse();
 
     SpeechletResponse getActualResponse();
@@ -14,7 +16,12 @@ public interface SpeechletResponseLogic {
     SpeechletResponse getHelpResponse();
 
     SpeechletResponse getErrorResponse();
+    //------------------------------------------------------------------------------------------------------------------
 
+
+
+    // Helper Methods
+    //------------------------------------------------------------------------------------------------------------------
     /**
      * Helper method that creates a card object.
      * @param title title of the card
@@ -80,4 +87,5 @@ public interface SpeechletResponseLogic {
 
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
     }
+    //------------------------------------------------------------------------------------------------------------------
 }
