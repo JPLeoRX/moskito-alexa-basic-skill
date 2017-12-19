@@ -18,6 +18,15 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ *
+ * RUN THIS USING
+ * !!!!!!!!!!
+ * mvn exec:java -Dexec.executable=java -DdisableRequestSignatureCheck=true -Dexec.args=$@
+ * !!!!!!!!!!
+ *
+ */
+
 
 /**
  * Shared launcher for executing all sample skills within a single servlet container.
