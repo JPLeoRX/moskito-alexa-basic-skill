@@ -1,4 +1,4 @@
-package speech;
+package moskito.speech;
 
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.OutputSpeech;

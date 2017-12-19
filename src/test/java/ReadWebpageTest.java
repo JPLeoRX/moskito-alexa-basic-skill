@@ -1,4 +1,4 @@
-import moskito.ReadWebpage;
+import moskito.services.ReadWebpage;
 import org.junit.Assert;
 import org.junit.Test;
 

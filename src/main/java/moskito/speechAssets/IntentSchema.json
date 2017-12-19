@@ -1,6 +1,9 @@
 {
   "intents": [
     {
+      "intent": "UnhandledIntent"
+    },
+    {
       "intent": "MoskitoIntent"
     },
     {

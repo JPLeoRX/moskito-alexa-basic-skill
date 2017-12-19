@@ -1,13 +1,13 @@
-package speech;
+package moskito.speech;
 
 import com.amazon.speech.speechlet.SpeechletResponse;
-import moskito.ReadWebpage;
+import moskito.services.ReadWebpage;
 
 public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
     String cardTitle = "Moskito";
-    String welcomeText = "Welcome to the Moskito Alexa Skill, you can say \"check app status\"";
-    String helpText = "You can say \"check app status\" to me!";
-    String errorText = "This is unsupported.  Please try something else.";
+    String welcomeText = "Welcome to the Moskito Alexa Skill, you can say \"check my app status\"";
+    String helpText = "You can say \"check my app status\" to me!";
+    String errorText = "This is unsupported. Please try something else.";
 
     default SpeechletResponse getWelcomeResponse() {
         return getAskResponse(cardTitle, welcomeText);

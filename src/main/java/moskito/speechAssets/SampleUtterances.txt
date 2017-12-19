@@ -1,0 +1,14 @@
+UnhandledIntent a
+UnhandledIntent basd fasd
+UnhandledIntent cat video fun
+UnhandledIntent hdfasdf sdfas ewqrqwe
+
+MoskitoIntent check my app status
+MoskitoIntent what is my app status
+MoskitoIntent how is my app
+MoskitoIntent status
+MoskitoIntent app status
+MoskitoIntent how is my app doing
+MoskitoIntent check on my app
+MoskitoIntent is it green
+MoskitoIntent is it red
