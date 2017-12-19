@@ -2,11 +2,15 @@ package moskito;
 
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.*;
+import moskito.services.Responses;
 import moskito.speech.MoskitoSpeechletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ResourceBundle;
+
 public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
+
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
@@ -35,6 +39,13 @@ public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
         // Redirect into our response, amazon help response, or ask user for input again
         Intent intent = intentRequest.getIntent();
         String intentName = (intent != null) ? intent.getName() : null;
+
+        // Setup locale
+        if (Responses.responseBundle == null)
+            Responses.responseBundle = ResourceBundle.getBundle("ResponsesBundle", intentRequest.getLocale());
+        else if (Responses.responseBundle != null)
+            if (!Responses.responseBundle.getLocale().equals(intentRequest.getLocale()))
+                Responses.responseBundle = ResourceBundle.getBundle("ResponsesBundle", intentRequest.getLocale());
 
         if ("StatusIntent".equals(intentName))
             return getStatusResponse();
