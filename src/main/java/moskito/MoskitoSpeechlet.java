@@ -41,11 +41,7 @@ public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
         String intentName = (intent != null) ? intent.getName() : null;
 
         // Setup locale
-        if (Responses.responseBundle == null)
-            Responses.responseBundle = ResourceBundle.getBundle("ResponsesBundle", intentRequest.getLocale());
-        else if (Responses.responseBundle != null)
-            if (!Responses.responseBundle.getLocale().equals(intentRequest.getLocale()))
-                Responses.responseBundle = ResourceBundle.getBundle("ResponsesBundle", intentRequest.getLocale());
+        Responses.initialize(intentRequest.getLocale());
 
         if ("StatusIntent".equals(intentName))
             return getStatusResponse();
