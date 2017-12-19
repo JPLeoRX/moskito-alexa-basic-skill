@@ -3,16 +3,12 @@ UnhandledIntent basd fasd
 UnhandledIntent cat video fun
 UnhandledIntent hdfasdf sdfas ewqrqwe
 
-MoskitoIntent my app status
-MoskitoIntent what is my app status
-MoskitoIntent check my app status
-MoskitoIntent my applications status
-MoskitoIntent what is my applications status
-MoskitoIntent check my applications status
-MoskitoIntent how is my app
-MoskitoIntent status
-MoskitoIntent app status
-MoskitoIntent how is my app doing
-MoskitoIntent check on my app
-MoskitoIntent is it green
-MoskitoIntent is it red
+StatusIntent my app status
+StatusIntent what is my app status
+StatusIntent check my app status
+StatusIntent my applications status
+StatusIntent what is my applications status
+StatusIntent check my applications status
+StatusIntent get status
+
+ThresholdIntent get thresholds
