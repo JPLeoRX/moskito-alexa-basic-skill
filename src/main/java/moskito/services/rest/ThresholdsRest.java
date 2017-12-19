@@ -12,8 +12,6 @@ public class ThresholdsRest extends ObjectRest {
     public ThresholdsRest(String appUrl) {
         super(appUrl);
         this.read();
-
-        System.out.println(list);
     }
 
     @Override
@@ -26,7 +24,7 @@ public class ThresholdsRest extends ObjectRest {
         for (int i = 0; i < statuses.length(); i++) {
             JSONObject status = (JSONObject) statuses.get(i);
 
-            String trName = status.getString("name");
+            String trName = StringHelper.splitCamelCase(status.getString("name"));
             Status trStatus = Status.getValueByName(status.getString("colorCode"));
             String trValue = status.getString("value");
 

@@ -3,12 +3,12 @@ package moskito.services.rest;
 public class Threshold {
     private String name;
     private Status status;
-    private String value;
+    private double value;
 
     public Threshold(String name, Status status, String value) {
         this.name = name;
         this.status = status;
-        this.value = value;
+        this.value = Double.valueOf(value);
     }
 
     public String getName() {
@@ -20,7 +20,7 @@ public class Threshold {
     }
 
     public String getValue() {
-        return value;
+        return String.valueOf((int) value);
     }
 
     @Override
