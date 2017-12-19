@@ -15,7 +15,8 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
 
     default SpeechletResponse getActualResponse() {
         ReadWebpage webpage = new ReadWebpage();
-        String speechText = webpage.getSuccessBool() ? "green" : "red";
+        String statusText = webpage.getSuccessBool() ? "green" : "red";
+        String speechText = "Your app status is " + statusText;
         return getTellResponse(cardTitle, speechText);
     }
 

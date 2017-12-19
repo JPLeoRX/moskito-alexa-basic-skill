@@ -1,1 +1,3 @@
-MoskitoIntent check app status
+MoskitoIntent check my app status
+MoskitoIntent what is my app status
+MoskitoIntent how is my app
