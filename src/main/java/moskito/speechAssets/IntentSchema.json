@@ -4,7 +4,7 @@
       "intent": "UnhandledIntent"
     },
     {
-      "intent": "MoskitoIntent"
+      "intent": "StatusIntent"
     },
     {
       "intent": "AMAZON.HelpIntent"

@@ -36,8 +36,8 @@ public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
         Intent intent = intentRequest.getIntent();
         String intentName = (intent != null) ? intent.getName() : null;
 
-        if ("MoskitoIntent".equals(intentName))
-            return getActualResponse();
+        if ("StatusIntent".equals(intentName))
+            return getStatusResponse();
 
         else if ("AMAZON.HelpIntent".equals(intentName))
             return getHelpResponse();
