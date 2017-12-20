@@ -34,7 +34,7 @@ public final class Alert {
         this.statusOld = statusOld;
         this.valueOld = valueOld;
         this.timestamp = timestamp;
-        
+
         LOGGER.info("Created {" + this + "}");
     }
 

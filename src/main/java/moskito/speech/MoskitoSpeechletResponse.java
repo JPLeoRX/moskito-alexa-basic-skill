@@ -11,33 +11,36 @@ import java.util.List;
 
 public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
     String cardTitle = "Moskito";
-    String welcomeText = "Welcome to the Moskito Alexa Skill, you can say \"check my app status\"";
-    String defaultText = "There seems to be an internal problem, please try another command";
-    String helpText = "You can say \"check my app status\" to me!";
-    String errorText = "This is unsupported. Please try something else.";
 
+    // Basic responses
+    //------------------------------------------------------------------------------------------------------------------
+    @Override
     default SpeechletResponse getWelcomeResponse() {
-        return getAskResponse(cardTitle, welcomeText);
+        return getAskResponse(cardTitle, Responses.get("WelcomeMessage"));
     }
 
-    default SpeechletResponse getActualResponse() {
-        return getAskResponse(cardTitle, defaultText);
-    }
-
+    @Override
     default SpeechletResponse getHelpResponse() {
-        return getAskResponse(cardTitle, helpText);
+        return getAskResponse(cardTitle, Responses.get("HelpMessage"));
     }
 
+    @Override
     default SpeechletResponse getErrorResponse() {
-        return getAskResponse(cardTitle, errorText);
+        return getAskResponse(cardTitle, Responses.get("ErrorMessage"));
     }
+    //------------------------------------------------------------------------------------------------------------------
 
 
 
+    // Responses to our skill
+    //------------------------------------------------------------------------------------------------------------------
     default SpeechletResponse getStatusResponse() {
         StatusRest status = new StatusRest(AppsURL.current);
         String speechText = Responses.get("StatusResponse").replace("${status}", status.getStatus());
-        return getTellResponse(cardTitle, speechText, "https://www.moskito.org/applications/control/green.png", speechText);
+        String smallImageUrl = "https://www.moskito.org/applications/control/${status}.png".replace("${status}", status.getStatus().toLowerCase());
+        String largeImageUrl = "https://www.moskito.org/applications/control/${status}.png".replace("${status}", status.getStatus().toLowerCase());;
+
+        return getTellResponse(cardTitle, speechText, smallImageUrl, largeImageUrl, speechText);
     }
 
     default SpeechletResponse getThresholdsResponse() {
@@ -55,7 +58,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
         }
         speechText = speechText.trim();
 
-        return getTellResponse(cardTitle, speechText);
+        return getTellResponse(cardTitle, speechText, speechText);
     }
 
     default SpeechletResponse getAlertsResponse(int numberOfAlerts) {
@@ -97,6 +100,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
             }
         }
 
-        return getTellResponse(cardTitle, speechText.trim());
+        return getTellResponse(cardTitle, speechText.trim(), speechText.trim());
     }
+    //------------------------------------------------------------------------------------------------------------------
 }

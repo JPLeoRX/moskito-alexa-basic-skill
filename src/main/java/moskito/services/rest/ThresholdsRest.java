@@ -1,30 +1,29 @@
 package moskito.services.rest;
 
-import moskito.services.rest.abstractions.ObjectRest;
+import moskito.services.rest.abstractions.CollectionRest;
 import moskito.services.rest.basic_entities.Status;
 import moskito.services.rest.basic_entities.Threshold;
 import moskito.services.rest.helpers.ParserJSON;
 import moskito.services.rest.helpers.StringHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.LinkedList;
 
 /**
  * Thresholds Object
  * @author Leo Ertuna
  */
-public final class ThresholdsRest extends ObjectRest {
-    private LinkedList<Threshold> list;
+public final class ThresholdsRest extends CollectionRest<Threshold> {
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public ThresholdsRest(String appUrl) {
         super(appUrl);
+        LOGGER.info("Created {" + this + "}");
     }
 
     @Override
     protected void read() {
-        list = new LinkedList<>();
-
         ParserJSON parserJSON = new ParserJSON(this.getRequestUrl());
         JSONObject root = parserJSON.getJsonObject();
         JSONObject results = root.getJSONObject("results");
@@ -47,7 +46,8 @@ public final class ThresholdsRest extends ObjectRest {
         return "thresholds";
     }
 
-    public LinkedList<Threshold> getList() {
-        return list;
+    @Override
+    public String toString() {
+        return "ThresholdsRest: list=" + list;
     }
 }

@@ -3,12 +3,13 @@ package moskito.services.rest.abstractions;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ *
+ *
+ * @author Leo Ertuna
+ */
 public abstract class CollectionRest<E> extends ObjectRest {
     protected List<E> list;
-
-    CollectionRest() {
-
-    }
 
     protected CollectionRest(String appUrl) {
         this.list = new LinkedList<>();
@@ -16,7 +17,6 @@ public abstract class CollectionRest<E> extends ObjectRest {
         this.requestUrl = appUrl + "/" + RESTPATH + "/" + this.getCaseUrl();
         this.read();
     }
-
 
     public List<E> getList() {
         return list;

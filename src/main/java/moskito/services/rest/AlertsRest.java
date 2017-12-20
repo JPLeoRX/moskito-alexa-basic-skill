@@ -1,30 +1,29 @@
 package moskito.services.rest;
 
+import moskito.services.rest.abstractions.CollectionRest;
 import moskito.services.rest.basic_entities.Alert;
-import moskito.services.rest.abstractions.ObjectRest;
 import moskito.services.rest.basic_entities.Status;
 import moskito.services.rest.helpers.ParserJSON;
 import moskito.services.rest.helpers.StringHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.LinkedList;
 
 /**
  * Alerts Object
  * @author Leo Ertuna
  */
-public class AlertsRest extends ObjectRest {
-    private LinkedList<Alert> list;
+public final class AlertsRest extends CollectionRest<Alert> {
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public AlertsRest(String appUrl) {
         super(appUrl);
+        LOGGER.info("Created {" + this + "}");
     }
 
     @Override
     protected void read() {
-        list = new LinkedList<>();
-
         ParserJSON parserJSON = new ParserJSON(this.getRequestUrl());
         JSONObject root = parserJSON.getJsonObject();
         JSONObject results = root.getJSONObject("results");
@@ -50,7 +49,8 @@ public class AlertsRest extends ObjectRest {
         return "alerts";
     }
 
-    public LinkedList<Alert> getList() {
-        return list;
+    @Override
+    public String toString() {
+        return "AlertsRest: list=" + list;
     }
 }
