@@ -1,5 +1,6 @@
 package moskito.services.rest;
 
+import moskito.services.rest.basic_entities.ObjectRest;
 import org.json.JSONObject;
 
 /**

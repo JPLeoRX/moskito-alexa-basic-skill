@@ -12,23 +12,18 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * @author Leo Ertuna
+ */
 public class ParserJSON {
-    private String url;
-    private String jsonString;
-    private JSONObject jsonObject;
+    private String url;                                 // URL of this REST request
+    private String jsonString;                          // JSON string of response to this REST request
+    private JSONObject jsonObject;                      // JSON object of response to this REST request
 
     public ParserJSON(String url) {
         this.url = url;
         this.formJsonString();
         this.jsonObject = new JSONObject(this.jsonString);
-    }
-
-    public String getJsonString() {
-        return jsonString;
-    }
-
-    public JSONObject getJsonObject() {
-        return jsonObject;
     }
 
     private void formJsonString() {
@@ -45,8 +40,21 @@ public class ParserJSON {
             while (scanner.hasNext())
                 jsonString += scanner.nextLine();
             scanner.close();
-        } catch (IOException e) {
+        }
+
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    // Getters
+    //------------------------------------------------------------------------------------------------------------------
+    public String getJsonString() {
+        return jsonString;
+    }
+
+    public JSONObject getJsonObject() {
+        return jsonObject;
+    }
+    //------------------------------------------------------------------------------------------------------------------
 }

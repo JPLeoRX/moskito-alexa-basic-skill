@@ -81,6 +81,12 @@ public class StringHelper {
         return String.valueOf((int) a);
     }
 
+    public static String trimValue(String value) {
+        if (value.equals("none yet"))
+            return "none";
+        return StringHelper.trimDouble(Double.valueOf(value));
+    }
+
     public static void main(String[] args) {
         System.out.println(trimDateAndTime("2017-12-14T12:40:46,151"));
     }

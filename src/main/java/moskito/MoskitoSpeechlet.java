@@ -36,6 +36,7 @@ public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
     @Override
     public SpeechletResponse onIntent(IntentRequest intentRequest, Session session) throws SpeechletException {
         LOGGER.info("onIntent requestId={}, sessionId={}", intentRequest.getRequestId(), session.getSessionId());
+        LOGGER.info(intentRequest.getIntent());
 
         // Redirect into our response, amazon help response, or ask user for input again
         Intent intent = intentRequest.getIntent();

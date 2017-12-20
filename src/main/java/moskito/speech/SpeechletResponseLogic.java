@@ -1,10 +1,7 @@
 package moskito.speech;
 
 import com.amazon.speech.speechlet.SpeechletResponse;
-import com.amazon.speech.ui.OutputSpeech;
-import com.amazon.speech.ui.PlainTextOutputSpeech;
-import com.amazon.speech.ui.Reprompt;
-import com.amazon.speech.ui.SimpleCard;
+import com.amazon.speech.ui.*;
 
 public interface SpeechletResponseLogic {
     // Response Logic
@@ -32,6 +29,19 @@ public interface SpeechletResponseLogic {
         SimpleCard card = new SimpleCard();
         card.setTitle(title);
         card.setContent(content);
+
+        return card;
+    }
+
+    default StandardCard getStandardCard(String title, String text, String imageUrl) {
+        StandardCard card = new StandardCard();
+        Image image = new Image();
+        image.setSmallImageUrl(imageUrl);
+        image.setLargeImageUrl(imageUrl);
+
+        card.setTitle(title);
+        card.setText(text);
+        card.setImage(image);
 
         return card;
     }
@@ -69,6 +79,13 @@ public interface SpeechletResponseLogic {
      */
     default SpeechletResponse getTellResponse(String cardTitle, String speechText) {
         SimpleCard card = getSimpleCard(cardTitle, speechText);
+        PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
+
+        return SpeechletResponse.newTellResponse(speech, card);
+    }
+
+    default SpeechletResponse getTellResponse(String cardTitle, String cardText, String cardImageUrl, String speechText) {
+        StandardCard card = getStandardCard(cardTitle, cardText, cardImageUrl);
         PlainTextOutputSpeech speech = getPlainTextOutputSpeech(speechText);
 
         return SpeechletResponse.newTellResponse(speech, card);

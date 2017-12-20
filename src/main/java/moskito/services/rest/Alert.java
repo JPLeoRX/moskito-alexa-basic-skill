@@ -1,5 +1,7 @@
 package moskito.services.rest;
 
+import java.util.Objects;
+
 /**
  * Alert Object
  *
@@ -11,7 +13,7 @@ package moskito.services.rest;
  *
  * @author Leo Ertuna
  */
-public class Alert {
+public final class Alert {
     private String thresholdName;
     private Status statusNew;
     private String valueNew;
@@ -28,6 +30,8 @@ public class Alert {
         this.timestamp = timestamp;
     }
 
+    // Getters
+    //------------------------------------------------------------------------------------------------------------------
     public String getThresholdName() {
         return thresholdName;
     }
@@ -36,28 +40,49 @@ public class Alert {
         return statusNew.getName();
     }
 
+    public String getValueNew() {
+        return StringHelper.trimValue(valueNew);
+    }
+
+
     public String getStatusOld() {
         return statusOld.getName();
     }
 
-    public String getValueNew() {
-        if (valueNew.equals("none yet"))
-            return "none";
-        return StringHelper.trimDouble(Double.valueOf(valueNew));
-    }
-
     public String getValueOld() {
-        if (valueOld.equals("none yet"))
-            return "none";
-        return StringHelper.trimDouble(Double.valueOf(valueOld));
+        return StringHelper.trimValue(valueOld);
     }
 
     public String getTime() {
         return StringHelper.trimDateAndTime(timestamp);
     }
+    //------------------------------------------------------------------------------------------------------------------
 
+
+
+    // Others
+    //------------------------------------------------------------------------------------------------------------------
     @Override
     public String toString() {
         return "Alert: " + "name=" + thresholdName + ", statusNew=" + statusNew + ", statusOld=" + statusOld + ", time=" + timestamp;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Alert)) return false;
+        Alert alert = (Alert) o;
+        return Objects.equals(thresholdName, alert.thresholdName) &&
+                statusNew == alert.statusNew &&
+                Objects.equals(valueNew, alert.valueNew) &&
+                statusOld == alert.statusOld &&
+                Objects.equals(valueOld, alert.valueOld) &&
+                Objects.equals(timestamp, alert.timestamp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(thresholdName, timestamp);
+    }
+    //------------------------------------------------------------------------------------------------------------------
 }

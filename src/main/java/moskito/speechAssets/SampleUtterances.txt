@@ -16,6 +16,7 @@ ThresholdsIntent my app thresholds
 ThresholdsIntent show thresholds
 ThresholdsIntent get thresholds
 ThresholdsIntent thresholds
+ThresholdsIntent threshold
 
 AlertsIntent show alerts
 AlertsIntent show {Number} alerts
@@ -24,3 +25,6 @@ AlertsIntent get alerts
 AlertsIntent get {Number} alerts
 AlertsIntent get last {Number} alerts
 AlertsIntent alerts
+AlertsIntent alert
+AlertsIntent last alert
+AlertsIntent last {Number} alerts

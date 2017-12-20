@@ -35,7 +35,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
     default SpeechletResponse getStatusResponse() {
         StatusRest status = new StatusRest(AppsURL.current);
         String speechText = Responses.get("StatusResponse").replace("${status}", status.getStatus());
-        return getTellResponse(cardTitle, speechText);
+        return getTellResponse(cardTitle, speechText, "https://www.moskito.org/applications/control/green.png", speechText);
     }
 
     default SpeechletResponse getThresholdsResponse() {
