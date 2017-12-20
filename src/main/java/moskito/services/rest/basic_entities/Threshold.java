@@ -1,6 +1,8 @@
 package moskito.services.rest.basic_entities;
 
 import moskito.services.rest.helpers.StringHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 
@@ -16,6 +18,8 @@ import java.util.Objects;
  * @author Leo Ertuna
  */
 public final class Threshold {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private String name;
     private Status status;
     private String value;
@@ -24,6 +28,8 @@ public final class Threshold {
         this.name = name;
         this.status = status;
         this.value = value;
+
+        LOGGER.info("Created {" + this + "}");
     }
 
     // Getters

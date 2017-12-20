@@ -1,6 +1,8 @@
 package moskito.services.rest.basic_entities;
 
 import moskito.services.rest.helpers.StringHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 
@@ -16,6 +18,8 @@ import java.util.Objects;
  * @author Leo Ertuna
  */
 public final class Alert {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private String thresholdName;
     private Status statusNew;
     private String valueNew;
@@ -30,6 +34,8 @@ public final class Alert {
         this.statusOld = statusOld;
         this.valueOld = valueOld;
         this.timestamp = timestamp;
+        
+        LOGGER.info("Created {" + this + "}");
     }
 
     // Getters
@@ -45,7 +51,6 @@ public final class Alert {
     public String getValueNew() {
         return StringHelper.trimValue(valueNew);
     }
-
 
     public String getStatusOld() {
         return statusOld.getName();
