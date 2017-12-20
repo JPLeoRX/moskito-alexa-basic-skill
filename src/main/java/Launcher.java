@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  *
  * RUN THIS USING
  * !!!!!!!!!!
- * bts proxy http 9999 --verbose
+ * bst proxy http 9999
  * mvn exec:java -Dexec.executable=java -DdisableRequestSignatureCheck=true -Dexec.args=$@
  * !!!!!!!!!!
  */

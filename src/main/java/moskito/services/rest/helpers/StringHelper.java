@@ -1,8 +1,13 @@
 package moskito.services.rest.helpers;
 
-public class StringHelper {
-    public static String splitCamelCase(String s) {
-        return s.replaceAll(
+public final class StringHelper {
+    /**
+     * Convert camel cased string into separate words
+     * @param camelCaseString
+     * @return
+     */
+    public static String splitCamelCase(String camelCaseString) {
+        return camelCaseString.replaceAll(
                 String.format("%s|%s|%s",
                         "(?<=[A-Z])(?=[A-Z][a-z])",
                         "(?<=[^A-Z])(?=[A-Z])",
@@ -12,6 +17,11 @@ public class StringHelper {
         );
     }
 
+    /**
+     * Convert month from integer to string
+     * @param month integer from 1 to 12
+     * @return verbal representation of the month
+     */
     public static String monthString(int month) {
         String monthString = "";
         switch (month) {
@@ -59,11 +69,12 @@ public class StringHelper {
         return monthString;
     }
 
-
-
+    /**
+     * Convert timestamp returned by moskito rest api into a readable form
+     * @param timestamp timestamp from moskito rest api
+     * @return date MONTH DAY, time HOUR:MINUTE:SECOND
+     */
     public static String trimDateAndTime(String timestamp) {
-        //"2017-12-14T12:40:46,151"
-
         String[] sp = timestamp.split("T");
         String[] date = sp[0].split("-");
         String[] time = sp[1].split(":");
@@ -85,9 +96,5 @@ public class StringHelper {
         if (value.equals("none yet"))
             return "none";
         return StringHelper.trimDouble(Double.valueOf(value));
-    }
-
-    public static void main(String[] args) {
-        System.out.println(trimDateAndTime("2017-12-14T12:40:46,151"));
     }
 }

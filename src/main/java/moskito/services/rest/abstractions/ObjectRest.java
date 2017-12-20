@@ -2,6 +2,7 @@ package moskito.services.rest.abstractions;
 
 /**
  * Basic structure of any REST Object
+ *
  * @author Leo Ertuna
  */
 public abstract class ObjectRest {
@@ -28,6 +29,7 @@ public abstract class ObjectRest {
     // Specify the case-url for this REST object
     protected abstract String getCaseUrl();
     //------------------------------------------------------------------------------------------------------------------
+
 
 
     // URL Getters

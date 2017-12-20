@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ * Basic structure of REST objects that are read like a collection of objects
  *
  * @author Leo Ertuna
  */
