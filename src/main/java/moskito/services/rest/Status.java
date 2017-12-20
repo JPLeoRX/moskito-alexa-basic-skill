@@ -4,7 +4,7 @@ package moskito.services.rest;
  * Helper Enumerator
  */
 enum Status {
-    GREEN("green"), RED("red");
+    GREEN("green"), YELLOW("yellow"), RED("red"), OFF("off");
     private String name;
 
     private Status(final String name) {
@@ -17,7 +17,7 @@ enum Status {
 
     public static Status getValueByName(String name) {
         for (Status value : Status.values())
-            if (value.getName().equals(name))
+            if (value.getName().equals(name.toLowerCase()))
                 return value;
         throw new IllegalArgumentException("No such value with name: " + name);
     }

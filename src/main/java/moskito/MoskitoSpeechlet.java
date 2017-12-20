@@ -46,8 +46,11 @@ public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
         if ("StatusIntent".equals(intentName))
             return getStatusResponse();
 
-        else if ("ThresholdIntent".equals(intentName))
+        else if ("ThresholdsIntent".equals(intentName))
             return getThresholdsResponse();
+
+        else if ("AlertsIntent".equals(intentName))
+            return getAlertsResponse();
 
         else if ("AMAZON.HelpIntent".equals(intentName))
             return getHelpResponse();

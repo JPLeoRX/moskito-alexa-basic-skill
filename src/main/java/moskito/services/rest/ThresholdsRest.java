@@ -1,21 +1,25 @@
 package moskito.services.rest;
 
-import moskito.services.AppsURL;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
 
-public class ThresholdsRest extends ObjectRest {
-    private LinkedList<Threshold> list = new LinkedList<>();
+/**
+ * Thresholds Object
+ * @author Leo Ertuna
+ */
+public final class ThresholdsRest extends ObjectRest {
+    private LinkedList<Threshold> list;
 
     public ThresholdsRest(String appUrl) {
         super(appUrl);
-        this.read();
     }
 
     @Override
     protected void read() {
+        list = new LinkedList<>();
+
         ParserJSON parserJSON = new ParserJSON(this.getRequestUrl());
         JSONObject root = parserJSON.getJsonObject();
         JSONObject results = root.getJSONObject("results");
@@ -29,7 +33,6 @@ public class ThresholdsRest extends ObjectRest {
             String trValue = status.getString("value");
 
             Threshold threshold = new Threshold(trName, trStatus, trValue);
-
             list.add(threshold);
         }
     }

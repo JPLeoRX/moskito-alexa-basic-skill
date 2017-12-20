@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ThresholdsRestTest {
+public class AlertsRestTest {
 
     @Test
     public void getList() {
-        Assert.assertEquals(true, new ThresholdsRest(AppsURL.BURGER_SHOP_HAMBURG).getList().size() != 0);
+        Assert.assertEquals(true, new AlertsRest(AppsURL.BURGER_SHOP_HAMBURG).getList().size() != 0);
     }
 }

@@ -12,7 +12,12 @@ StatusIntent check my applications status
 StatusIntent get status
 StatusIntent status
 
-ThresholdIntent my app thresholds
-ThresholdIntent show thresholds
-ThresholdIntent get thresholds
-ThresholdIntent thresholds
+ThresholdsIntent my app thresholds
+ThresholdsIntent show thresholds
+ThresholdsIntent get thresholds
+ThresholdsIntent thresholds
+
+AlertsIntent my app alerts
+AlertsIntent show alerts
+AlertsIntent get alerts
+AlertsIntent alerts

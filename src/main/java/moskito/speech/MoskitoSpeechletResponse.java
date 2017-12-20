@@ -3,9 +3,7 @@ package moskito.speech;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import moskito.services.AppsURL;
 import moskito.services.Responses;
-import moskito.services.rest.StatusRest;
-import moskito.services.rest.Threshold;
-import moskito.services.rest.ThresholdsRest;
+import moskito.services.rest.*;
 
 import java.util.List;
 
@@ -44,14 +42,42 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
         ThresholdsRest thresholdsRest = new ThresholdsRest(AppsURL.current);
         List<Threshold> thresholds = thresholdsRest.getList();
 
-        String speechText = Responses.get("ThresholdResponseLine1").replace("${count}", String.valueOf(thresholds.size()));
+        String speechText = Responses.get("ThresholdsResponseLine1").replace("${count}", String.valueOf(thresholds.size()));
         for (int i = 0; i < thresholds.size(); i++) {
             Threshold t = thresholds.get(i);
-            speechText += " " + Responses.get("ThresholdResponseLineN")
+            speechText += " " + Responses.get("ThresholdsResponseLineN")
                     .replace("${index}", String.valueOf(i + 1))
                     .replace("${name}", t.getName())
                     .replace("${status}", String.valueOf(t.getStatus()))
                     .replace("${value}", t.getValue());
+        }
+        speechText = speechText.trim();
+
+        return getTellResponse(cardTitle, speechText);
+    }
+
+    default SpeechletResponse getAlertsResponse() {
+        AlertsRest alertsRest = new AlertsRest(AppsURL.current);
+        List<Alert> alerts = alertsRest.getList();
+
+        String speechText = "";
+
+        if (alerts.size() > 5)
+            speechText = Responses.get("AlertsResponseLine1").replace("${count}", "5");
+        else
+            speechText = Responses.get("AlertsResponseLine1").replace("${count}", String.valueOf(alerts.size()));
+
+        for (int i = 0; i < 5; i++) {
+            if (i < alerts.size()) {
+                Alert a = alerts.get(i);
+                speechText += " " + Responses.get("AlertsResponseLineN")
+                        .replace("${index}", String.valueOf(i + 1))
+                        .replace("${name}", a.getName())
+                        .replace("${oldStatus}", String.valueOf(a.getStatusOld()))
+                        .replace("${newStatus}", String.valueOf(a.getStatusNew()))
+                        .replace("${time}", a.getTime());
+            }
+
         }
         speechText = speechText.trim();
 

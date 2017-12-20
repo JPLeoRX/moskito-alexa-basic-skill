@@ -12,7 +12,6 @@ public final class StatusRest extends ObjectRest {
 
     public StatusRest(String appUrl) {
         super(appUrl);
-        this.read();
     }
 
     @Override

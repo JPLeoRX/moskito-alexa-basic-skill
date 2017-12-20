@@ -1,6 +1,6 @@
 package moskito.services.rest;
 
-public class Threshold {
+public final class Threshold {
     private String name;
     private Status status;
     private double value;
@@ -25,10 +25,6 @@ public class Threshold {
 
     @Override
     public String toString() {
-        return "Threshold{" +
-                "name='" + name + '\'' +
-                ", status=" + status +
-                ", value='" + value + '\'' +
-                '}';
+        return "Threshold: name=" + name + ", status=" + status + ", value=" + value;
     }
 }
