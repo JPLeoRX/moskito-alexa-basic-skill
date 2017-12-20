@@ -6,6 +6,8 @@ import moskito.services.Responses;
 import moskito.services.rest.*;
 import moskito.services.rest.basic_entities.Alert;
 import moskito.services.rest.basic_entities.Threshold;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -52,7 +54,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
             Threshold t = thresholds.get(i);
             speechText += " " + Responses.get("ThresholdsResponseLineN")
                     .replace("${index}", String.valueOf(i + 1))
-                    .replace("${name}", t.getName())
+                    .replace("${thresholdName}", t.getName())
                     .replace("${status}", t.getStatus())
                     .replace("${value}", t.getValue());
         }
