@@ -4,7 +4,7 @@ import com.amazon.speech.ui.Image;
 import com.amazon.speech.ui.SimpleCard;
 import com.amazon.speech.ui.StandardCard;
 
-public interface SpeechletCards {
+public interface AlexaCards {
     static StandardCard getStandardCard(String title, String text, String smallImageUrl, String largeImageUrl) {
         // Create image
         Image image = new Image();

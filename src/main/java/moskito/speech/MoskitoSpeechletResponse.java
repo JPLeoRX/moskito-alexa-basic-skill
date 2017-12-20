@@ -16,17 +16,17 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
     //------------------------------------------------------------------------------------------------------------------
     @Override
     default SpeechletResponse getWelcomeResponse() {
-        return getAskResponse(cardTitle, Responses.get("WelcomeMessage"));
+        return AlexaResponses.getAskResponse(cardTitle, Responses.get("WelcomeMessage"));
     }
 
     @Override
     default SpeechletResponse getHelpResponse() {
-        return getAskResponse(cardTitle, Responses.get("HelpMessage"));
+        return AlexaResponses.getAskResponse(cardTitle, Responses.get("HelpMessage"));
     }
 
     @Override
     default SpeechletResponse getErrorResponse() {
-        return getAskResponse(cardTitle, Responses.get("ErrorMessage"));
+        return AlexaResponses.getAskResponse(cardTitle, Responses.get("ErrorMessage"));
     }
     //------------------------------------------------------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
         String smallImageUrl = "https://www.moskito.org/applications/control/${status}.png".replace("${status}", status.getStatus().toLowerCase());
         String largeImageUrl = "https://www.moskito.org/applications/control/${status}.png".replace("${status}", status.getStatus().toLowerCase());;
 
-        return getTellResponse(cardTitle, speechText, smallImageUrl, largeImageUrl, speechText);
+        return AlexaResponses.getTellResponse(cardTitle, speechText, smallImageUrl, largeImageUrl, speechText);
     }
 
     default SpeechletResponse getThresholdsResponse() {
@@ -58,7 +58,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
         }
         speechText = speechText.trim();
 
-        return getTellResponse(cardTitle, speechText, speechText);
+        return AlexaResponses.getTellResponse(cardTitle, speechText, speechText);
     }
 
     default SpeechletResponse getAlertsResponse(int numberOfAlerts) {
@@ -68,7 +68,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
 
         // If the user asks for too many alerts
         if (numberOfAlerts > alerts.size())
-            return getAskResponse(cardTitle, Responses.get("AlertsResponseRetry"));
+            return AlexaResponses.getAskResponse(cardTitle, Responses.get("AlertsResponseRetry"));
 
         // If there's only one alert to be displayed
         else if (numberOfAlerts == 1) {
@@ -100,7 +100,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
             }
         }
 
-        return getTellResponse(cardTitle, speechText.trim(), speechText.trim());
+        return AlexaResponses.getTellResponse(cardTitle, speechText.trim(), speechText.trim());
     }
     //------------------------------------------------------------------------------------------------------------------
 }
