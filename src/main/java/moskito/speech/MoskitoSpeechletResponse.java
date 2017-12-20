@@ -48,7 +48,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
             speechText += " " + Responses.get("ThresholdsResponseLineN")
                     .replace("${index}", String.valueOf(i + 1))
                     .replace("${name}", t.getName())
-                    .replace("${status}", String.valueOf(t.getStatus()))
+                    .replace("${status}", t.getStatus())
                     .replace("${value}", t.getValue());
         }
         speechText = speechText.trim();
@@ -56,31 +56,45 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
         return getTellResponse(cardTitle, speechText);
     }
 
-    default SpeechletResponse getAlertsResponse() {
+    default SpeechletResponse getAlertsResponse(int numberOfAlerts) {
         AlertsRest alertsRest = new AlertsRest(AppsURL.current);
         List<Alert> alerts = alertsRest.getList();
+        String speechText;
 
-        String speechText = "";
+        // If the user asks for too many alerts
+        if (numberOfAlerts > alerts.size())
+            return getAskResponse(cardTitle, Responses.get("AlertsResponseRetry"));
 
-        if (alerts.size() > 5)
-            speechText = Responses.get("AlertsResponseLine1").replace("${count}", "5");
-        else
-            speechText = Responses.get("AlertsResponseLine1").replace("${count}", String.valueOf(alerts.size()));
-
-        for (int i = 0; i < 5; i++) {
-            if (i < alerts.size()) {
-                Alert a = alerts.get(i);
-                speechText += " " + Responses.get("AlertsResponseLineN")
-                        .replace("${index}", String.valueOf(i + 1))
-                        .replace("${name}", a.getName())
-                        .replace("${oldStatus}", String.valueOf(a.getStatusOld()))
-                        .replace("${newStatus}", String.valueOf(a.getStatusNew()))
-                        .replace("${time}", a.getTime());
-            }
-
+        // If there's only one alert to be displayed
+        else if (numberOfAlerts == 1) {
+            Alert a = alerts.get(0);
+            speechText = Responses.get("AlertsResponseDefault")
+                    .replace("${thresholdName}", a.getThresholdName())
+                    .replace("${oldStatus}", a.getStatusOld())
+                    .replace("${oldValue}", a.getValueOld())
+                    .replace("${newValue}", a.getValueNew())
+                    .replace("${newStatus}", a.getStatusNew())
+                    .replace("${time}", a.getTime());
         }
-        speechText = speechText.trim();
 
-        return getTellResponse(cardTitle, speechText);
+        // If there are several alerts
+        else {
+            speechText = Responses.get("AlertsResponseLine1").replace("${count}", String.valueOf(numberOfAlerts));
+            for (int i = 0; i < numberOfAlerts; i++) {
+                if (i < alerts.size()) {
+                    Alert a = alerts.get(i);
+                    speechText += " " + Responses.get("AlertsResponseLineN")
+                            .replace("${index}", String.valueOf(i + 1))
+                            .replace("${thresholdName}", a.getThresholdName())
+                            .replace("${oldStatus}", a.getStatusOld())
+                            .replace("${oldValue}", a.getValueOld())
+                            .replace("${newValue}", a.getValueNew())
+                            .replace("${newStatus}", a.getStatusNew())
+                            .replace("${time}", a.getTime());
+                }
+            }
+        }
+
+        return getTellResponse(cardTitle, speechText.trim());
     }
 }

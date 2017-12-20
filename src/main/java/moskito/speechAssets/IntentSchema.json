@@ -10,7 +10,13 @@
       "intent": "ThresholdsIntent"
     },
     {
-      "intent": "AlertsIntent"
+      "intent": "AlertsIntent",
+      "slots": [
+        {
+          "name": "Number",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
     },
     {
       "intent": "AMAZON.HelpIntent"

@@ -30,10 +30,12 @@ public class AlertsRest extends ObjectRest {
 
             String name = StringHelper.splitCamelCase(alertJson.getString("name"));
             Status statusNew = Status.getValueByName(alertJson.getString("newStatus"));
+            String valueNew = alertJson.getString("newValue");
             Status statusOld = Status.getValueByName(alertJson.getString("oldStatus"));
+            String valueOld = alertJson.getString("oldValue");
             String time = alertJson.getString("timestamp");
 
-            Alert alert = new Alert(name, statusNew, statusOld, time);
+            Alert alert = new Alert(name, statusNew, valueNew, statusOld, valueOld, time);
             list.add(alert);
         }
     }

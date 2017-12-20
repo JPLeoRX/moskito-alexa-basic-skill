@@ -15,12 +15,12 @@ public final class Threshold {
         return name;
     }
 
-    public Status getStatus() {
-        return status;
+    public String getStatus() {
+        return status.getName();
     }
 
     public String getValue() {
-        return String.valueOf((int) value);
+        return StringHelper.trimDouble(value);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package moskito;
 
 import com.amazon.speech.slu.Intent;
+import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.*;
 import moskito.services.Responses;
 import moskito.speech.MoskitoSpeechletResponse;
@@ -49,8 +50,20 @@ public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
         else if ("ThresholdsIntent".equals(intentName))
             return getThresholdsResponse();
 
-        else if ("AlertsIntent".equals(intentName))
-            return getAlertsResponse();
+        // If Alerts
+        else if ("AlertsIntent".equals(intentName)) {
+            int number = 1;
+            Slot slot = intent.getSlot("Number");
+
+            // If there is such slot
+            if (slot != null)
+                // If there is a value
+                if (slot.getValue() != null)
+                    // We will use this value in our call
+                    number = Integer.valueOf(slot.getValue());
+
+            return getAlertsResponse(number);
+        }
 
         else if ("AMAZON.HelpIntent".equals(intentName))
             return getHelpResponse();
