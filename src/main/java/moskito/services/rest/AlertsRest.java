@@ -1,6 +1,10 @@
 package moskito.services.rest;
 
-import moskito.services.rest.basic_entities.ObjectRest;
+import moskito.services.rest.basic_entities.Alert;
+import moskito.services.rest.abstractions.ObjectRest;
+import moskito.services.rest.basic_entities.Status;
+import moskito.services.rest.helpers.ParserJSON;
+import moskito.services.rest.helpers.StringHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

@@ -1,4 +1,4 @@
-package moskito.services.rest;
+package moskito.services.rest.helpers;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;

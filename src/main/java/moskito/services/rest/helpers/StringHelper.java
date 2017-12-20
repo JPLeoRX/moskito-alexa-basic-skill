@@ -1,4 +1,4 @@
-package moskito.services.rest;
+package moskito.services.rest.helpers;
 
 public class StringHelper {
     public static String splitCamelCase(String s) {

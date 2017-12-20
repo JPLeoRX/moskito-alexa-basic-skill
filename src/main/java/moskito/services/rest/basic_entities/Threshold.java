@@ -1,4 +1,6 @@
-package moskito.services.rest;
+package moskito.services.rest.basic_entities;
+
+import moskito.services.rest.helpers.StringHelper;
 
 import java.util.Objects;
 

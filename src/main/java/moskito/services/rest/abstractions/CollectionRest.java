@@ -1,4 +1,4 @@
-package moskito.services.rest.basic_entities;
+package moskito.services.rest.abstractions;
 
 import java.util.LinkedList;
 import java.util.List;

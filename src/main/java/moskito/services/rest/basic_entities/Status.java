@@ -1,9 +1,9 @@
-package moskito.services.rest;
+package moskito.services.rest.basic_entities;
 
 /**
  * Helper Enumerator
  */
-enum Status {
+public enum Status {
     GREEN("green"), YELLOW("yellow"), RED("red"), OFF("off");
     private String name;
 

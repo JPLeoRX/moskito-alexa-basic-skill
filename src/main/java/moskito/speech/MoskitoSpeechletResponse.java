@@ -4,6 +4,8 @@ import com.amazon.speech.speechlet.SpeechletResponse;
 import moskito.services.AppsURL;
 import moskito.services.Responses;
 import moskito.services.rest.*;
+import moskito.services.rest.basic_entities.Alert;
+import moskito.services.rest.basic_entities.Threshold;
 
 import java.util.List;
 
