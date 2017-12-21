@@ -1,0 +1,30 @@
+UnhandledIntent a
+UnhandledIntent basd fasd
+UnhandledIntent cat video fun
+UnhandledIntent hdfasdf sdfas ewqrqwe
+
+StatusIntent my app status
+StatusIntent what is my app status
+StatusIntent check my app status
+StatusIntent my applications status
+StatusIntent what is my applications status
+StatusIntent check my applications status
+StatusIntent get status
+StatusIntent status
+
+ThresholdsIntent my app thresholds
+ThresholdsIntent show thresholds
+ThresholdsIntent get thresholds
+ThresholdsIntent thresholds
+ThresholdsIntent threshold
+
+AlertsIntent show alerts
+AlertsIntent show {Number} alerts
+AlertsIntent show last {Number} alerts
+AlertsIntent get alerts
+AlertsIntent get {Number} alerts
+AlertsIntent get last {Number} alerts
+AlertsIntent alerts
+AlertsIntent alert
+AlertsIntent last alert
+AlertsIntent last {Number} alerts
