@@ -1,12 +1,29 @@
 package moskito.speech;
 
+import com.amazon.speech.slu.Intent;
+import com.amazon.speech.speechlet.Directive;
+import com.amazon.speech.speechlet.IntentRequest;
+import com.amazon.speech.speechlet.Session;
 import com.amazon.speech.speechlet.SpeechletResponse;
+
+import com.amazon.speech.speechlet.interfaces.display.DisplayInterface;
+import com.amazon.speech.speechlet.interfaces.display.directive.RenderTemplateDirective;
+import com.amazon.speech.speechlet.interfaces.display.element.Image;
+import com.amazon.speech.speechlet.interfaces.display.element.PlainText;
+import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate1;
+import com.amazon.speech.speechlet.interfaces.display.template.Template;
+import com.amazon.speech.speechlet.interfaces.system.SystemInterface;
+import com.amazon.speech.speechlet.interfaces.system.SystemState;
+import com.amazon.speech.ui.Card;
+import com.amazon.speech.ui.PlainTextOutputSpeech;
 import moskito.services.AppsURL;
 import moskito.services.Responses;
+import moskito.services.images.ImageHelper;
 import moskito.services.rest.*;
 import moskito.services.rest.basic_entities.Alert;
 import moskito.services.rest.basic_entities.Threshold;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
@@ -41,7 +58,36 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
         String smallImageUrl = "https://www.moskito.org/applications/control/${status}.png".replace("${status}", status.getStatus().toLowerCase());
         String largeImageUrl = "https://www.moskito.org/applications/control/${status}.png".replace("${status}", status.getStatus().toLowerCase());;
 
-        return AlexaResponses.getTellResponse(cardTitle, speechText, smallImageUrl, largeImageUrl, speechText);
+//        SystemState system = envelope.getContext().getState(SystemInterface.class, SystemState.class);
+//        boolean hasDisplay = system.getDevice().getSupportedInterfaces().isInterfaceSupported(DisplayInterface.class);
+
+
+//        // Create the card
+//        Card card = AlexaCards.getSimpleCard(cardTitle, speechText);
+//
+//        // Create the speech
+//        PlainTextOutputSpeech speech = AlexaSpeech.getPlainTextOutputSpeech(speechText);
+//
+//        // Create screen text
+//        BodyTemplate1.TextContent screenText = AlexaScreen.getTextContent1(speechText);
+//
+//        // Create image
+//        Image image = ImageHelper.getImage("https://s3.amazonaws.com/hurricane-data/hurricaneBackground.png", 1024, 600);
+//
+//        // Create the templete
+//        BodyTemplate1 bodyTemplate1 = AlexaScreen.getBodyTemplate1(cardTitle, cardTitle, screenText, image, Template.BackButtonBehavior.HIDDEN);
+//
+//        // Create render directive
+//        RenderTemplateDirective renderTemplateDirective = AlexaScreen.getRenderTemplateDirective(bodyTemplate1);
+//
+//        List<Directive> directives = new ArrayList<>();
+//        directives.add(renderTemplateDirective);
+//
+//        //return AlexaResponses.getTellResponse(cardTitle, speechText, smallImageUrl, largeImageUrl, speechText);
+
+        return AlexaResponses.getResponse(cardTitle, speechText, speechText, "https://s3.amazonaws.com/hurricane-data/hurricaneBackground.png", 1024, 600, Template.BackButtonBehavior.HIDDEN, true);
+
+        //return AlexaResponses.getResponse(speech, card, directives, true);
     }
 
     default SpeechletResponse getThresholdsResponse() {

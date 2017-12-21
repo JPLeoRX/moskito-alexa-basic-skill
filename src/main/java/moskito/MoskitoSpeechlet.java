@@ -41,6 +41,8 @@ public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
     public SpeechletResponse onIntent(IntentRequest intentRequest, Session session) throws SpeechletException {
         LOGGER.info("onIntent requestId={}, sessionId={}", intentRequest.getRequestId(), session.getSessionId());
 
+        //LOGGER.info();
+
         // Setup locale
         Responses.initialize(intentRequest.getLocale());
 

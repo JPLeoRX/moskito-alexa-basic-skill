@@ -25,17 +25,7 @@ public enum ImageResources {
     private Image image;
 
     private ImageResources(final String stringURI, final int width, final int height) {
-
-        ImageInstance imageInstance = new ImageInstance();
-        imageInstance.setUrl(stringURI);
-        imageInstance.setHeightPixels(height);
-        imageInstance.setWidthPixels(width);
-
-        List<ImageInstance> imageSources = new ArrayList<>();
-        imageSources.add(imageInstance);
-
-        this.image = new Image();
-        this.image.setSources(imageSources);
+        this.image = ImageHelper.getImage(stringURI, width, height);
     }
 
     public Image getImage() {
