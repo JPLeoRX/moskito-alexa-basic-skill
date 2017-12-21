@@ -11,8 +11,16 @@ import com.amazon.speech.ui.StandardCard;
  *
  * @author Leo Ertuna
  */
-public final class AlexaCards {
-    public static StandardCard getStandardCard(String title, String text, String smallImageUrl, String largeImageUrl) {
+public final class AlexaCardFactory {
+    /**
+     * Standard Card contains title, text, and image (can be displayed as small and large version)
+     * @param title
+     * @param text
+     * @param smallImageUrl
+     * @param largeImageUrl
+     * @return standard card
+     */
+    public static StandardCard newStandardCard(String title, String text, String smallImageUrl, String largeImageUrl) {
         // Create image
         Image image = new Image();
         image.setSmallImageUrl(smallImageUrl);
@@ -27,7 +35,13 @@ public final class AlexaCards {
         return card;
     }
 
-    public static SimpleCard getSimpleCard(String title, String text) {
+    /**
+     * Simple Card contains only title and text
+     * @param title
+     * @param text
+     * @return simple card
+     */
+    public static SimpleCard newSimpleCard(String title, String text) {
         // Create card
         SimpleCard card = new SimpleCard();
         card.setTitle(title);

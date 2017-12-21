@@ -63,7 +63,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
 
 
 //        // Create the card
-//        Card card = AlexaCards.getSimpleCard(cardTitle, speechText);
+//        Card card = AlexaCardFactory.newSimpleCard(cardTitle, speechText);
 //
 //        // Create the speech
 //        PlainTextOutputSpeech speech = AlexaSpeech.getPlainTextOutputSpeech(speechText);

@@ -11,7 +11,6 @@ import com.amazon.speech.ui.OutputSpeech;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import moskito.services.images.ImageHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +34,7 @@ public final class AlexaResponses {
 
     public static SpeechletResponse getResponse(String cardTitle, String cardText, String speechText, String imageUrl, int imageWidth, int imageHeight, Template.BackButtonBehavior backButtonBehavior, boolean shouldEndSession) {
         // Create card
-        Card card = AlexaCards.getSimpleCard(cardTitle, cardText);
+        Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
 
         // Create speech
         PlainTextOutputSpeech speech = AlexaSpeech.getPlainTextOutputSpeech(speechText);
@@ -61,39 +60,39 @@ public final class AlexaResponses {
     public static SpeechletResponse getTellResponse(String cardTitle, String speechText) {
         return SpeechletResponse.newTellResponse(
                 AlexaSpeech.getPlainTextOutputSpeech(speechText),
-                AlexaCards.getSimpleCard(cardTitle, speechText));
+                AlexaCardFactory.newSimpleCard(cardTitle, speechText));
     }
 
     public static SpeechletResponse getTellResponse(String cardTitle, String cardText, String speechText) {
         return SpeechletResponse.newTellResponse(
                 AlexaSpeech.getPlainTextOutputSpeech(speechText),
-                AlexaCards.getSimpleCard(cardTitle, cardText));
+                AlexaCardFactory.newSimpleCard(cardTitle, cardText));
     }
 
     public static SpeechletResponse getTellResponse(String cardTitle, String cardText, String cardSmallImageUrl, String cardLargeImageUrl, String speechText) {
         return SpeechletResponse.newTellResponse(
                 AlexaSpeech.getPlainTextOutputSpeech(speechText),
-                AlexaCards.getStandardCard(cardTitle, cardText, cardSmallImageUrl, cardLargeImageUrl));
+                AlexaCardFactory.newStandardCard(cardTitle, cardText, cardSmallImageUrl, cardLargeImageUrl));
     }
 
     public static SpeechletResponse getAskResponse(String cardTitle, String speechText) {
         return SpeechletResponse.newAskResponse(
                 AlexaSpeech.getPlainTextOutputSpeech(speechText),
                 AlexaSpeech.getReprompt(speechText),
-                AlexaCards.getSimpleCard(cardTitle, speechText));
+                AlexaCardFactory.newSimpleCard(cardTitle, speechText));
     }
 
     public static SpeechletResponse getAskResponse(String cardTitle, String cardText, String speechText) {
         return SpeechletResponse.newAskResponse(
                 AlexaSpeech.getPlainTextOutputSpeech(speechText),
                 AlexaSpeech.getReprompt(speechText),
-                AlexaCards.getSimpleCard(cardTitle, cardText));
+                AlexaCardFactory.newSimpleCard(cardTitle, cardText));
     }
 
     public static SpeechletResponse getAskResponse(String cardTitle, String cardText, String cardSmallImageUrl, String cardLargeImageUrl, String speechText) {
         return SpeechletResponse.newAskResponse(
                 AlexaSpeech.getPlainTextOutputSpeech(speechText),
                 AlexaSpeech.getReprompt(speechText),
-                AlexaCards.getStandardCard(cardTitle, cardText, cardSmallImageUrl, cardLargeImageUrl));
+                AlexaCardFactory.newStandardCard(cardTitle, cardText, cardSmallImageUrl, cardLargeImageUrl));
     }
 }
