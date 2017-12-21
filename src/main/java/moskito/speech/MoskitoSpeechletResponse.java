@@ -6,13 +6,11 @@ import moskito.services.Responses;
 import moskito.services.rest.*;
 import moskito.services.rest.basic_entities.Alert;
 import moskito.services.rest.basic_entities.Threshold;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
-    String cardTitle = "Moskito";
+    String cardTitle = "MoSKito";
 
     // Basic responses
     //------------------------------------------------------------------------------------------------------------------
@@ -38,7 +36,8 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
     //------------------------------------------------------------------------------------------------------------------
     default SpeechletResponse getStatusResponse() {
         StatusRest status = new StatusRest(AppsURL.current);
-        String speechText = Responses.get("StatusResponse").replace("${status}", status.getStatus());
+        String speechText = Responses.get("StatusResponseDefault").replace("${status}", status.getStatus());
+        String cardTitle = Responses.get("StatusResponseTitle");
         String smallImageUrl = "https://www.moskito.org/applications/control/${status}.png".replace("${status}", status.getStatus().toLowerCase());
         String largeImageUrl = "https://www.moskito.org/applications/control/${status}.png".replace("${status}", status.getStatus().toLowerCase());;
 
@@ -59,6 +58,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
                     .replace("${value}", t.getValue());
         }
         speechText = speechText.trim();
+        String cardTitle = Responses.get("ThresholdsResponseTitle");
 
         return AlexaResponses.getTellResponse(cardTitle, speechText, speechText);
     }
@@ -101,6 +101,8 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
                 }
             }
         }
+
+        String cardTitle = Responses.get("AlertsResponseTitle");
 
         return AlexaResponses.getTellResponse(cardTitle, speechText.trim(), speechText.trim());
     }
