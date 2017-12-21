@@ -10,15 +10,15 @@
 
 import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.servlet.SpeechletServlet;
-import moskito.MoskitoSpeechlet;
+import moskito.MoskitoSpeechletV2;
 import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-/**
+/*
  *
  * RUN THIS USING
  * !!!!!!!!!!
@@ -27,27 +27,14 @@ import org.slf4j.LoggerFactory;
  * !!!!!!!!!!
  */
 
-
 /**
  * Shared launcher for executing all sample skills within a single servlet container.
  */
 public final class Launcher {
-    private static final Logger log = LoggerFactory.getLogger(Launcher.class);
-    /**
-     * port number for the jetty server.
-     */
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private static final int PORT = 9999;
-
-    /**
-     * Security scheme to use.
-     */
     private static final String HTTPS_SCHEME = "https";
-
-    /**
-     * default constructor.
-     */
-    private Launcher() {
-    }
 
     /**
      * Main entry point. Starts a Jetty server.
@@ -66,7 +53,7 @@ public final class Launcher {
 
         server.setHandler(context);
 
-        context.addServlet(new ServletHolder(createServlet(new MoskitoSpeechlet())), "/moskito");
+        context.addServlet(new ServletHolder(createServlet(new MoskitoSpeechletV2())), "/moskito");
 
         server.start();
         server.join();
@@ -80,9 +67,6 @@ public final class Launcher {
 
     private static Server newServer() {
         Server server = new Server(PORT);
-
-        // What else?
-
         return server;
     }
 }

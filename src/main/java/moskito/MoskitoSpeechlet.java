@@ -3,6 +3,7 @@ package moskito;
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.*;
+import moskito.services.IntentNames;
 import moskito.services.Responses;
 import moskito.speech.MoskitoSpeechletResponse;
 import org.apache.logging.log4j.LogManager;
@@ -53,17 +54,17 @@ public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
             return getErrorResponse();
 
         // Status
-        else if ("StatusIntent".equals(intent.getName()))
+        else if (IntentNames.STATUS_INTENT.equals(intent.getName()))
             return getStatusResponse();
 
         // Thresholds
-        else if ("ThresholdsIntent".equals(intent.getName()))
+        else if (IntentNames.THRESHOLDS_INTENT.equals(intent.getName()))
             return getThresholdsResponse();
 
         // Alerts
-        else if ("AlertsIntent".equals(intent.getName())) {
+        else if (IntentNames.ALERTS_INTENT.equals(intent.getName())) {
             int number = 1;
-            Slot slot = intent.getSlot("Number");
+            Slot slot = intent.getSlot(IntentNames.ALERTS_INTENT_SLOT_NUMBER);
 
             if (slot != null)                                                       // If there is such slot
                 if (slot.getValue() != null)                                        // If there is a value
@@ -73,7 +74,7 @@ public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
         }
 
         // Amazon Help
-        else if ("AMAZON.HelpIntent".equals(intent.getName()))
+        else if (IntentNames.AMAZON_HELP_INTENT.equals(intent.getName()))
             return getHelpResponse();
 
         // If the intent is not recognized
