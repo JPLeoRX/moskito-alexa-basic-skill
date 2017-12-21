@@ -10,23 +10,22 @@ import moskito.services.rest.basic_entities.Threshold;
 import java.util.List;
 
 public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
-    String cardTitle = "MoSKito";
 
     // Basic responses
     //------------------------------------------------------------------------------------------------------------------
     @Override
     default SpeechletResponse getWelcomeResponse() {
-        return AlexaResponses.getAskResponse(cardTitle, Responses.get("WelcomeMessage"));
+        return AlexaResponses.getAskResponse(Responses.get("Title"), Responses.get("WelcomeMessage"));
     }
 
     @Override
     default SpeechletResponse getHelpResponse() {
-        return AlexaResponses.getAskResponse(cardTitle, Responses.get("HelpMessage"));
+        return AlexaResponses.getAskResponse(Responses.get("Title"), Responses.get("HelpMessage"));
     }
 
     @Override
     default SpeechletResponse getErrorResponse() {
-        return AlexaResponses.getAskResponse(cardTitle, Responses.get("ErrorMessage"));
+        return AlexaResponses.getAskResponse(Responses.get("Title"), Responses.get("ErrorMessage"));
     }
     //------------------------------------------------------------------------------------------------------------------
 
@@ -35,9 +34,10 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
     // Responses to our skill
     //------------------------------------------------------------------------------------------------------------------
     default SpeechletResponse getStatusResponse() {
+        String cardTitle = Responses.get("StatusResponseTitle");
+
         StatusRest status = new StatusRest(AppsURL.current);
         String speechText = Responses.get("StatusResponseDefault").replace("${status}", status.getStatus());
-        String cardTitle = Responses.get("StatusResponseTitle");
         String smallImageUrl = "https://www.moskito.org/applications/control/${status}.png".replace("${status}", status.getStatus().toLowerCase());
         String largeImageUrl = "https://www.moskito.org/applications/control/${status}.png".replace("${status}", status.getStatus().toLowerCase());;
 
@@ -45,6 +45,8 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
     }
 
     default SpeechletResponse getThresholdsResponse() {
+        String cardTitle = Responses.get("ThresholdsResponseTitle");
+
         ThresholdsRest thresholdsRest = new ThresholdsRest(AppsURL.current);
         List<Threshold> thresholds = thresholdsRest.getList();
 
@@ -58,12 +60,13 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
                     .replace("${value}", t.getValue());
         }
         speechText = speechText.trim();
-        String cardTitle = Responses.get("ThresholdsResponseTitle");
 
         return AlexaResponses.getTellResponse(cardTitle, speechText, speechText);
     }
 
     default SpeechletResponse getAlertsResponse(int numberOfAlerts) {
+        String cardTitle = Responses.get("AlertsResponseTitle");
+
         AlertsRest alertsRest = new AlertsRest(AppsURL.current);
         List<Alert> alerts = alertsRest.getList();
         String speechText;
@@ -102,7 +105,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
             }
         }
 
-        String cardTitle = Responses.get("AlertsResponseTitle");
+
 
         return AlexaResponses.getTellResponse(cardTitle, speechText.trim(), speechText.trim());
     }
