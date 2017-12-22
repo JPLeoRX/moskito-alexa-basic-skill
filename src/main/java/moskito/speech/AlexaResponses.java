@@ -40,7 +40,7 @@ public final class AlexaResponses {
         PlainTextOutputSpeech speech = AlexaSpeech.getPlainTextOutputSpeech(speechText);
 
         // Create text content
-        BodyTemplate1.TextContent screenText = AlexaScreen.getTextContent1(speechText);
+        BodyTemplate1.TextContent screenText = AlexaTextContentFactory.getTextContent1(speechText);
 
         // Create image content
         Image image = ImageHelper.getImage(imageUrl, imageWidth, imageHeight);

@@ -1,23 +1,32 @@
 package moskito.speech;
 
 import com.amazon.speech.ui.Image;
+import com.amazon.speech.ui.Card;
 import com.amazon.speech.ui.SimpleCard;
 import com.amazon.speech.ui.StandardCard;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * Helper methods to deal with cards
+ * Helper methods to create new cards, classes derived from {@link Card}
  *
- * Creates Standard Cards(title-text-image) and Simple Cards (title-text)
+ * Creates {@link StandardCard}(title-text-image) and {@link SimpleCard} (title-text)
  *
  * @author Leo Ertuna
  */
 public final class AlexaCardFactory {
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    private AlexaCardFactory() {
+
+    }
+
     /**
      * Standard Card contains title, text, and image (can be displayed as small and large version)
-     * @param title
-     * @param text
-     * @param smallImageUrl
-     * @param largeImageUrl
+     * @param title card title
+     * @param text card text
+     * @param smallImageUrl url to the small image of the card (shown on smaller displays)
+     * @param largeImageUrl url to the large image of the card (shown on larger displays)
      * @return standard card
      */
     public static StandardCard newStandardCard(String title, String text, String smallImageUrl, String largeImageUrl) {
@@ -32,13 +41,14 @@ public final class AlexaCardFactory {
         card.setText(text);
         card.setImage(image);
 
+        LOGGER.info("Created: {" + card + "}");
         return card;
     }
 
     /**
      * Simple Card contains only title and text
-     * @param title
-     * @param text
+     * @param title card title
+     * @param text card text
      * @return simple card
      */
     public static SimpleCard newSimpleCard(String title, String text) {
@@ -47,6 +57,7 @@ public final class AlexaCardFactory {
         card.setTitle(title);
         card.setContent(text);
 
+        LOGGER.info("Created: {" + card + "}");
         return card;
     }
 }
