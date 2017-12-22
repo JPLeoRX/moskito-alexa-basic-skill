@@ -9,6 +9,7 @@ import moskito.speech.MoskitoSpeechletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@Deprecated
 public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -47,41 +48,7 @@ public class MoskitoSpeechlet implements Speechlet, MoskitoSpeechletResponse {
         Responses.initialize(intentRequest.getLocale());
 
         // Redirect into handle intent
-        return handleIntent(intentRequest.getIntent());
-    }
-
-    private SpeechletResponse handleIntent(Intent intent) {
-        // If there is no intent
-        if (intent == null)
-            return getErrorResponse();
-
-        // Status
-        else if (IntentNames.STATUS_INTENT.equals(intent.getName()))
-            return getStatusResponse();
-
-        // Thresholds
-        else if (IntentNames.THRESHOLDS_INTENT.equals(intent.getName()))
-            return getThresholdsResponse();
-
-        // Alerts
-        else if (IntentNames.ALERTS_INTENT.equals(intent.getName())) {
-            int number = 1;
-            Slot slot = intent.getSlot(IntentNames.ALERTS_INTENT_SLOT_NUMBER);
-
-            if (slot != null)                                                       // If there is such slot
-                if (slot.getValue() != null)                                        // If there is a value
-                    number = Integer.valueOf(slot.getValue());                      // We will use this value in our call
-
-            return getAlertsResponse(number);
-        }
-
-        // Amazon Help
-        else if (IntentNames.AMAZON_HELP_INTENT.equals(intent.getName()))
-            return getHelpResponse();
-
-        // If the intent is not recognized
-        else
-            return getErrorResponse();
+        return null;
     }
     //------------------------------------------------------------------------------------------------------------------
 }

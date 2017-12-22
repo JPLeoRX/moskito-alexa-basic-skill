@@ -9,6 +9,7 @@
  */
 
 import com.amazon.speech.speechlet.Speechlet;
+import com.amazon.speech.speechlet.SpeechletV2;
 import com.amazon.speech.speechlet.servlet.SpeechletServlet;
 import moskito.MoskitoSpeechletV2;
 import org.apache.log4j.PropertyConfigurator;
@@ -57,6 +58,12 @@ public final class Launcher {
 
         server.start();
         server.join();
+    }
+
+    private static SpeechletServlet createServlet(final SpeechletV2 speechletV2) {
+        SpeechletServlet servlet = new SpeechletServlet();
+        servlet.setSpeechlet(speechletV2);
+        return servlet;
     }
 
     private static SpeechletServlet createServlet(final Speechlet speechlet) {

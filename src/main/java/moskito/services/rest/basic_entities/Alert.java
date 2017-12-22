@@ -44,8 +44,12 @@ public final class Alert {
         return thresholdName;
     }
 
-    public String getStatusNew() {
+    public String getStatusNewName() {
         return statusNew.getName();
+    }
+
+    public String getStatusNew() {
+        return statusNew.getString();
     }
 
     public String getValueNew() {
@@ -53,15 +57,19 @@ public final class Alert {
     }
 
     public String getStatusOld() {
-        return statusOld.getName();
+        return statusOld.getString();
     }
 
     public String getValueOld() {
         return StringHelper.trimValue(valueOld);
     }
 
-    public String getTime() {
-        return StringHelper.trimDateAndTime(timestamp);
+    public String getTimeSpeech() {
+        return StringHelper.trimDateAndTimeForSpeech(timestamp);
+    }
+
+    public String getTimeDisplay() {
+        return StringHelper.trimDateAndTimeForDisplay(timestamp);
     }
     //------------------------------------------------------------------------------------------------------------------
 

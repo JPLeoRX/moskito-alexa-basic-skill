@@ -31,6 +31,6 @@ public final class StatusRest extends ObjectRest {
     }
 
     public String getStatus() {
-        return status.getName();
+        return status.getString();
     }
 }

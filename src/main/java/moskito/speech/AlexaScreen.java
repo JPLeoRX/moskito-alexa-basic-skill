@@ -4,6 +4,7 @@ import com.amazon.speech.speechlet.Directive;
 import com.amazon.speech.speechlet.interfaces.display.directive.RenderTemplateDirective;
 import com.amazon.speech.speechlet.interfaces.display.element.Image;
 import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate1;
+import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate2;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
 
 import java.util.ArrayList;
@@ -20,6 +21,17 @@ public class AlexaScreen {
         bodyTemplate1.setBackButtonBehavior(backButtonBehavior);
         return bodyTemplate1;
     }
+    public static BodyTemplate2 getBodyTemplate2(String token, String title, BodyTemplate2.TextContent textContent, Image backgroundImage, Image image, Template.BackButtonBehavior backButtonBehavior) {
+        BodyTemplate2 bodyTemplate2 = new BodyTemplate2();
+        bodyTemplate2.setToken(token);
+        bodyTemplate2.setTitle(title);
+        bodyTemplate2.setTextContent(textContent);
+        bodyTemplate2.setBackgroundImage(backgroundImage);
+        bodyTemplate2.setImage(image);
+        bodyTemplate2.setBackButtonBehavior(backButtonBehavior);
+        return bodyTemplate2;
+    }
+
 
     public static RenderTemplateDirective getRenderTemplateDirective(Template template) {
         RenderTemplateDirective renderTemplateDirective = new RenderTemplateDirective();

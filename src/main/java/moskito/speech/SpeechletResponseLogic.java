@@ -11,7 +11,7 @@ import com.amazon.speech.speechlet.SpeechletResponse;
  *
  * Help Response            occurs when Amazon Help intent was fired (ex: "Alexa ask moskito for help")
  *
- * Error Response           occurs when no intent was fired (ex: "Alexa ask moskito jibber jabber")
+ * Error Response           occurs when no intent was fired (ex: "Alexa ask moskito to jibber jabber")
  *
  * @author Leo Ertuna
  */

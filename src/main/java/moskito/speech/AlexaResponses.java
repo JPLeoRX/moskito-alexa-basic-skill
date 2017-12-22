@@ -5,6 +5,7 @@ import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.speechlet.interfaces.display.directive.RenderTemplateDirective;
 import com.amazon.speech.speechlet.interfaces.display.element.Image;
 import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate1;
+import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate2;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import com.amazon.speech.ui.Card;
 import com.amazon.speech.ui.OutputSpeech;
@@ -40,16 +41,17 @@ public final class AlexaResponses {
         PlainTextOutputSpeech speech = AlexaSpeech.getPlainTextOutputSpeech(speechText);
 
         // Create text content
-        BodyTemplate1.TextContent screenText = AlexaTextContentFactory.getTextContent1(speechText);
+        BodyTemplate2.TextContent screenText = AlexaTextContentFactory.getTextContent2(speechText);
 
         // Create image content
-        Image image = ImageHelper.getImage(imageUrl, imageWidth, imageHeight);
+        Image backgroundImage = ImageHelper.getImage(imageUrl, imageWidth, imageHeight);
+        Image image = ImageHelper.getImage("http://burgershop-control.demo.moskito.org/moskito-control/img/smiley_green.png", 580, 580);
 
         // Create template
-        BodyTemplate1 bodyTemplate1 = AlexaScreen.getBodyTemplate1(cardTitle, cardTitle, screenText, image, backButtonBehavior);
+        Template template = AlexaScreen.getBodyTemplate2(cardTitle, cardTitle, screenText, backgroundImage, image, backButtonBehavior);
 
         // Create render directive
-        RenderTemplateDirective renderTemplateDirective = AlexaScreen.getRenderTemplateDirective(bodyTemplate1);
+        RenderTemplateDirective renderTemplateDirective = AlexaScreen.getRenderTemplateDirective(template);
 
         // Create list of directives
         List<Directive> directives = AlexaScreen.getListOfDirectives(renderTemplateDirective);

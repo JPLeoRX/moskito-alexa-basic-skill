@@ -39,7 +39,7 @@ public final class Threshold {
     }
 
     public String getStatus() {
-        return status.getName();
+        return status.getString();
     }
 
     public String getValue() {
