@@ -19,24 +19,27 @@ public final class AlexaTextContentFactory {
 
     }
 
-    public static BodyTemplate1.TextContent getTextContent1(String primaryText) {
+    public static BodyTemplate1.TextContent newTextContent1(String primaryText) {
         BodyTemplate1.TextContent textContent = new BodyTemplate1.TextContent();
+
         textContent.setPrimaryText(AlexaTextFieldFactory.newPlainText(primaryText));
 
         LOGGER.info("Created: {" + textContent + "}");
         return textContent;
     }
 
-    public static BodyTemplate2.TextContent getTextContent2(String primaryText) {
+    public static BodyTemplate2.TextContent newTextContent2(String primaryText) {
         BodyTemplate2.TextContent textContent = new BodyTemplate2.TextContent();
+
         textContent.setPrimaryText(AlexaTextFieldFactory.newPlainText(primaryText));
 
         LOGGER.info("Created: {" + textContent + "}");
         return textContent;
     }
 
-    public static ListTemplate1.ListItem.TextContent getTextContentList1(String primaryText, String secondaryText, String tertiaryText) {
+    public static ListTemplate1.ListItem.TextContent newTextContentList1(String primaryText, String secondaryText, String tertiaryText) {
         ListTemplate1.ListItem.TextContent textContent = new ListTemplate1.ListItem.TextContent();
+
         textContent.setPrimaryText(AlexaTextFieldFactory.newPlainText(primaryText));
         textContent.setSecondaryText(AlexaTextFieldFactory.newPlainText(secondaryText));
         textContent.setTertiaryText(AlexaTextFieldFactory.newPlainText(tertiaryText));

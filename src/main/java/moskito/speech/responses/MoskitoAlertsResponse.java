@@ -137,7 +137,7 @@ public class MoskitoAlertsResponse extends IntentResponse {
 
                     item.setImage(ImageHelper.getImage("https://www.moskito.org/applications/control/" + a.getStatusNewName().toLowerCase() + ".png", 75, 75));
 
-                    item.setTextContent(AlexaTextContentFactory.getTextContentList1(
+                    item.setTextContent(AlexaTextContentFactory.newTextContentList1(
                             a.getThresholdName(),
                             a.getStatusOld() + " / " + a.getValueOld() + " -> " + a.getStatusNew() + " / " + a.getValueNew(),
                             a.getTimeDisplay()));

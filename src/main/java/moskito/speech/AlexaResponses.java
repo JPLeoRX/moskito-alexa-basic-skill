@@ -4,7 +4,6 @@ import com.amazon.speech.speechlet.Directive;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.speechlet.interfaces.display.directive.RenderTemplateDirective;
 import com.amazon.speech.speechlet.interfaces.display.element.Image;
-import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate1;
 import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate2;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import com.amazon.speech.ui.Card;
@@ -41,7 +40,7 @@ public final class AlexaResponses {
         PlainTextOutputSpeech speech = AlexaSpeech.getPlainTextOutputSpeech(speechText);
 
         // Create text content
-        BodyTemplate2.TextContent screenText = AlexaTextContentFactory.getTextContent2(speechText);
+        BodyTemplate2.TextContent screenText = AlexaTextContentFactory.newTextContent2(speechText);
 
         // Create image content
         Image backgroundImage = ImageHelper.getImage(imageUrl, imageWidth, imageHeight);
