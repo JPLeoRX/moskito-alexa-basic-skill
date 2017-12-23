@@ -25,6 +25,9 @@ import org.eclipse.jetty.servlet.ServletHolder;
  * !!!!!!!!!!
  * bst proxy http 9999
  * mvn exec:java -Dexec.executable=java -DdisableRequestSignatureCheck=true -Dexec.args=$@
+ *
+ * https://happy-undefined-8TaW13.bespoken.link/moskito
+ *
  * !!!!!!!!!!
  */
 
