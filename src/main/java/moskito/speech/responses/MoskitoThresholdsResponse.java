@@ -29,6 +29,8 @@ public class MoskitoThresholdsResponse extends IntentResponse {
         super(requestEnvelope);
     }
 
+
+
     // Initialization
     //------------------------------------------------------------------------------------------------------------------
     @Override
@@ -52,7 +54,7 @@ public class MoskitoThresholdsResponse extends IntentResponse {
         // Create first line
         speechLine1 = Responses.get("ThresholdsResponseLine1").replace("${count}", String.valueOf(thresholds.size()));
 
-        // Create all the lines
+        // Create other lines
         for (int i = 0; i < thresholds.size(); i++) {
             Threshold t = thresholds.get(i);
             speechLines.add(" " + Responses.get("ThresholdsResponseLineN")
@@ -68,9 +70,15 @@ public class MoskitoThresholdsResponse extends IntentResponse {
         for (String l : speechLines)
             speechText += l;
     }
+    //------------------------------------------------------------------------------------------------------------------
 
+
+
+    // Responses
+    //------------------------------------------------------------------------------------------------------------------
     @Override
     protected SpeechletResponse getResponseWithDisplay() {
+        // Initialize
         this.initializeObjectRest();
         this.initializeCardTitle();
         this.initializeSpeechText();
@@ -103,42 +111,20 @@ public class MoskitoThresholdsResponse extends IntentResponse {
         // Create list of directives
         List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective);
 
+        // Return response
         return AlexaResponseFactory.newResponse(speech, card, directives, true);
     }
 
     @Override
     protected SpeechletResponse getResponse() {
+        // Initialize
         this.initializeObjectRest();
         this.initializeCardTitle();
         this.initializeSpeechText();
         this.initializeCardText();
 
+        // Return response
         return AlexaResponseFactory.newTellResponse(cardTitle, cardText, speechText);
     }
-    //    default SpeechletResponse getThresholdsResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
-//        // Read the data
-
-//
-//
-//        String cardTitle = Responses.get("ThresholdsResponseTitle");
-//
-//        String line1 = Responses.get("ThresholdsResponseLine1").replace("${count}", String.valueOf(thresholds.size()));
-//        List<String> lines = new LinkedList<>();
-//        for (int i = 0; i < thresholds.size(); i++) {
-//            Threshold t = thresholds.get(i);
-//            lines.add(" " + Responses.get("ThresholdsResponseLineN")
-//                    .replace("${index}", String.valueOf(i + 1))
-//                    .replace("${thresholdName}", t.getName())
-//                    .replace("${status}", t.getStatus())
-//                    .replace("${value}", t.getValue())
-//            );
-//        }
-//
-//
-//        String speechText = line1;
-//        for (String l : lines)
-//            speechText += l;
-//
-//        return AlexaResponseFactory.newTellResponse(cardTitle, speechText, speechText);
-//    }
+    //------------------------------------------------------------------------------------------------------------------
 }

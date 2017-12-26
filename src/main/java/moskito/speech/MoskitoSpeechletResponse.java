@@ -4,8 +4,12 @@ import com.amazon.speech.speechlet.SpeechletResponse;
 
 import moskito.services.Responses;
 import moskito.speech.helpers.AlexaResponseFactory;
-import moskito.speech.responses.MoskitoThresholdsResponse;
 
+/**
+ * Core speechlet logic implemented for moskito speechlet
+ *
+ * @author Leo Ertuna
+ */
 public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
 
     // Basic responses

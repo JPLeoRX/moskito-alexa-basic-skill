@@ -70,10 +70,10 @@ public class MoskitoAlertsResponse extends IntentResponse {
             Alert a = alerts.get(0);
             speechText = Responses.get("AlertsResponseDefault")
                     .replace("${thresholdName}", a.getThresholdName())
-                    .replace("${oldStatus}", a.getStatusOld())
+                    .replace("${oldStatus}", a.getStatusOldString())
                     .replace("${oldValue}", a.getValueOld())
                     .replace("${newValue}", a.getValueNew())
-                    .replace("${newStatus}", a.getStatusNew())
+                    .replace("${newStatus}", a.getStatusNewString())
                     .replace("${time}", a.getTimeSpeech());
         }
 
@@ -86,10 +86,10 @@ public class MoskitoAlertsResponse extends IntentResponse {
                     speechLines.add(" " + Responses.get("AlertsResponseLineN")
                             .replace("${index}", String.valueOf(i + 1))
                             .replace("${thresholdName}", a.getThresholdName())
-                            .replace("${oldStatus}", a.getStatusOld())
+                            .replace("${oldStatus}", a.getStatusOldString())
                             .replace("${oldValue}", a.getValueOld())
                             .replace("${newValue}", a.getValueNew())
-                            .replace("${newStatus}", a.getStatusNew())
+                            .replace("${newStatus}", a.getStatusNewString())
                             .replace("${time}", a.getTimeSpeech())
                     );
                 }
@@ -113,55 +113,50 @@ public class MoskitoAlertsResponse extends IntentResponse {
 
         // If the user asks for too many alerts
         if (numberOfAlerts > alerts.size()) {
+            // Return an error response
             return AlexaResponseFactory.newAskResponse(cardTitle, Responses.get("AlertsResponseRetry"), Responses.get("AlertsResponseRetry"));
         }
 
+        // If the number of alerts is valid
         else {
+            // Initialize
             this.initializeCardTitle();
             this.initializeSpeechText();
             this.initializeCardText();
 
-            if (numberOfAlerts > 0)
-            {
-                // Create card
-                Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
+            // Create card
+            Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
 
-                // Create speech
-                PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
+            // Create speech
+            PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
 
-                // Create list items
-                List<ListTemplate1.ListItem> listItems = new LinkedList<>();
-                for (int i = 0; i < numberOfAlerts; i++) {
-                    Alert a = alerts.get(i);
-                    ListTemplate1.ListItem item = new ListTemplate1.ListItem();
-
-                    item.setImage(AlexaImageFactory.newImage("https://www.moskito.org/applications/control/" + a.getStatusNewName().toLowerCase() + ".png", 75, 75));
-
-                    item.setTextContent(AlexaTextContentFactory.newTextContentList1(
-                            a.getThresholdName(),
-                            a.getStatusOld() + " / " + a.getValueOld() + " -> " + a.getStatusNew() + " / " + a.getValueNew(),
-                            a.getTimeDisplay()));
-                    listItems.add(item);
-                }
-
-                // Create template
-                ListTemplate1 listTemplate1 = new ListTemplate1();
-                listTemplate1.setListItems(listItems);
-                listTemplate1.setTitle(cardTitle);
-                listTemplate1.setBackButtonBehavior(Template.BackButtonBehavior.HIDDEN);
-
-                // Create render directive
-                RenderTemplateDirective renderTemplateDirective = AlexaTemplateFactory.newRenderTemplateDirective(listTemplate1);
-
-                // Create list of directives
-                List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective);
-
-                return AlexaResponseFactory.newResponse(speech, card, directives, true);
+            // Create list items
+            List<ListTemplate1.ListItem> listItems = new LinkedList<>();
+            for (int i = 0; i < numberOfAlerts; i++) {
+                Alert a = alerts.get(i);
+                listItems.add(AlexaListItemFactory.newListItem1(
+                        AlexaTextContentFactory.newTextContentList1(
+                                a.getThresholdName(),
+                                a.getStatusOldString() + " / " + a.getValueOld() + " -> " + a.getStatusNewString() + " / " + a.getValueNew(),
+                                a.getTimeDisplay()
+                        ),
+                        AlexaImageFactory.newImage(a.getStatusNewImageUrl(), 75, 75)
+                ));
             }
 
-        }
+            // Create template
+            ListTemplate1 template = AlexaTemplateFactory.newListTemplate1(cardTitle, listItems, null, Template.BackButtonBehavior.HIDDEN);
 
-        return getResponse();
+            // Create render directive
+            RenderTemplateDirective renderTemplateDirective = AlexaTemplateFactory.newRenderTemplateDirective(template);
+
+            // Create list of directives
+            List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective);
+
+            // Return response
+            return AlexaResponseFactory.newResponse(speech, card, directives, true);
+
+        }
     }
 
     @Override

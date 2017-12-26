@@ -48,16 +48,28 @@ public final class Alert {
         return statusNew.getName();
     }
 
-    public String getStatusNew() {
+    public String getStatusNewString() {
         return statusNew.getString();
+    }
+
+    public String getStatusNewImageUrl() {
+        return statusNew.getImageUrl();
     }
 
     public String getValueNew() {
         return StringHelper.trimValue(valueNew);
     }
 
-    public String getStatusOld() {
+    public String getStatusOldName() {
+        return statusOld.getName();
+    }
+
+    public String getStatusOldString() {
         return statusOld.getString();
+    }
+
+    public String getStatusOldImageUrl() {
+        return statusOld.getImageUrl();
     }
 
     public String getValueOld() {

@@ -58,33 +58,42 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
         Intent intent = requestEnvelope.getRequest().getIntent();
 
         // If there is no intent
-        if (intent == null)
+        if (intent == null) {
+            LOGGER.error("Intent is null");
             return getErrorResponse();
+        }
 
         // Status
         else if (IntentNames.STATUS_INTENT.equals(intent.getName())) {
+            LOGGER.info("Intent: " + intent.getName());
             MoskitoStatusResponse moskitoStatusResponse = new MoskitoStatusResponse(requestEnvelope);
             return moskitoStatusResponse.respond();
         }
 
         // Thresholds
         else if (IntentNames.THRESHOLDS_INTENT.equals(intent.getName())) {
+            LOGGER.info("Intent: " + intent.getName());
             MoskitoThresholdsResponse moskitoThresholdsResponse = new MoskitoThresholdsResponse(requestEnvelope);
             return moskitoThresholdsResponse.respond();
         }
 
         // Alerts
         else if (IntentNames.ALERTS_INTENT.equals(intent.getName())) {
+            LOGGER.info("Intent: " + intent.getName());
             MoskitoAlertsResponse moskitoAlertsResponse = new MoskitoAlertsResponse(requestEnvelope);
             return moskitoAlertsResponse.respond();
         }
 
         // Amazon Help
-        else if (IntentNames.AMAZON_HELP_INTENT.equals(intent.getName()))
+        else if (IntentNames.AMAZON_HELP_INTENT.equals(intent.getName())) {
+            LOGGER.info("Intent: " + intent.getName());
             return getHelpResponse();
+        }
 
         // If the intent is not recognized
-        else
+        else {
+            LOGGER.error("Intent is not recognized");
             return getErrorResponse();
+        }
     }
 }

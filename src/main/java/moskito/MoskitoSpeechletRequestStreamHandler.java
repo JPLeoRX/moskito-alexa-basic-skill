@@ -23,6 +23,6 @@ public class MoskitoSpeechletRequestStreamHandler extends SpeechletRequestStream
     }
 
     public MoskitoSpeechletRequestStreamHandler() {
-        super(new MoskitoSpeechlet(), supportedApplicationIds);
+        super(new MoskitoSpeechletV2(), supportedApplicationIds);
     }
 }

@@ -24,7 +24,7 @@ public final class AlexaTextContentFactory {
 
         textContent.setPrimaryText(AlexaTextFieldFactory.newPlainText(primaryText));
 
-        LOGGER.info("Created Text Content: {" + textContent + "}");
+        LOGGER.info("Created Text Content 1: {" + textContent + "}");
         return textContent;
     }
 
@@ -35,7 +35,7 @@ public final class AlexaTextContentFactory {
         textContent.setSecondaryText(AlexaTextFieldFactory.newPlainText(secondaryText));
         textContent.setTertiaryText(AlexaTextFieldFactory.newPlainText(tertiaryText));
 
-        LOGGER.info("Created Text Content: {" + textContent + "}");
+        LOGGER.info("Created Text Content 2: {" + textContent + "}");
         return textContent;
     }
 
@@ -46,7 +46,7 @@ public final class AlexaTextContentFactory {
         textContent.setSecondaryText(AlexaTextFieldFactory.newPlainText(secondaryText));
         textContent.setTertiaryText(AlexaTextFieldFactory.newPlainText(tertiaryText));
 
-        LOGGER.info("Created Text Content: {" + textContent + "}");
+        LOGGER.info("Created Text Content List 1: {" + textContent + "}");
         return textContent;
     }
 }
