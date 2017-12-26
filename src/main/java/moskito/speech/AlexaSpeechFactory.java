@@ -11,20 +11,20 @@ import com.amazon.speech.ui.Reprompt;
  *
  * @author Leo Ertuna
  */
-public final class AlexaSpeech {
-    public static PlainTextOutputSpeech getPlainTextOutputSpeech(String speechText) {
+public final class AlexaSpeechFactory {
+    public static PlainTextOutputSpeech newPlainTextOutputSpeech(String speechText) {
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
         return speech;
     }
 
-    public static Reprompt getReprompt(OutputSpeech outputSpeech) {
+    private static Reprompt newReprompt(OutputSpeech outputSpeech) {
         Reprompt reprompt = new Reprompt();
         reprompt.setOutputSpeech(outputSpeech);
         return reprompt;
     }
 
-    public static Reprompt getReprompt(String speechText) {
-        return getReprompt(getPlainTextOutputSpeech(speechText));
+    public static Reprompt newReprompt(String speechText) {
+        return newReprompt(newPlainTextOutputSpeech(speechText));
     }
 }

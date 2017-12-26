@@ -1,10 +1,7 @@
 package moskito.services.images;
 
 import com.amazon.speech.speechlet.interfaces.display.element.Image;
-import com.amazon.speech.speechlet.interfaces.display.element.ImageInstance;
-
-import java.util.ArrayList;
-import java.util.List;
+import moskito.speech.AlexaImageFactory;
 
 public enum ImageResources {
     ALEXA_LOGO ("https://s3.amazonaws.com/mkusters-images/alexa-logo.png", 640, 290),
@@ -25,7 +22,7 @@ public enum ImageResources {
     private Image image;
 
     private ImageResources(final String stringURI, final int width, final int height) {
-        this.image = ImageHelper.getImage(stringURI, width, height);
+        this.image = AlexaImageFactory.newImage(stringURI, width, height);
     }
 
     public Image getImage() {

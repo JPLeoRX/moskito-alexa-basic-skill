@@ -9,7 +9,6 @@ import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import com.amazon.speech.ui.Card;
 import com.amazon.speech.ui.OutputSpeech;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
-import moskito.services.images.ImageHelper;
 
 import java.util.List;
 
@@ -37,14 +36,14 @@ public final class AlexaResponses {
         Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
 
         // Create speech
-        PlainTextOutputSpeech speech = AlexaSpeech.getPlainTextOutputSpeech(speechText);
+        PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
 
         // Create text content
         BodyTemplate2.TextContent screenText = AlexaTextContentFactory.newTextContent2(speechText);
 
         // Create image content
-        Image backgroundImage = ImageHelper.getImage(imageUrl, imageWidth, imageHeight);
-        Image image = ImageHelper.getImage("http://burgershop-control.demo.moskito.org/moskito-control/img/smiley_green.png", 580, 580);
+        Image backgroundImage = AlexaImageFactory.newImage(imageUrl, imageWidth, imageHeight);
+        Image image = AlexaImageFactory.newImage("http://burgershop-control.demo.moskito.org/moskito-control/img/smiley_green.png", 580, 580);
 
         // Create template
         Template template = AlexaScreen.getBodyTemplate2(cardTitle, cardTitle, screenText, backgroundImage, image, backButtonBehavior);
@@ -60,40 +59,40 @@ public final class AlexaResponses {
 
     public static SpeechletResponse getTellResponse(String cardTitle, String speechText) {
         return SpeechletResponse.newTellResponse(
-                AlexaSpeech.getPlainTextOutputSpeech(speechText),
+                AlexaSpeechFactory.newPlainTextOutputSpeech(speechText),
                 AlexaCardFactory.newSimpleCard(cardTitle, speechText));
     }
 
     public static SpeechletResponse getTellResponse(String cardTitle, String cardText, String speechText) {
         return SpeechletResponse.newTellResponse(
-                AlexaSpeech.getPlainTextOutputSpeech(speechText),
+                AlexaSpeechFactory.newPlainTextOutputSpeech(speechText),
                 AlexaCardFactory.newSimpleCard(cardTitle, cardText));
     }
 
     public static SpeechletResponse getTellResponse(String cardTitle, String cardText, String cardSmallImageUrl, String cardLargeImageUrl, String speechText) {
         return SpeechletResponse.newTellResponse(
-                AlexaSpeech.getPlainTextOutputSpeech(speechText),
+                AlexaSpeechFactory.newPlainTextOutputSpeech(speechText),
                 AlexaCardFactory.newStandardCard(cardTitle, cardText, cardSmallImageUrl, cardLargeImageUrl));
     }
 
     public static SpeechletResponse getAskResponse(String cardTitle, String speechText) {
         return SpeechletResponse.newAskResponse(
-                AlexaSpeech.getPlainTextOutputSpeech(speechText),
-                AlexaSpeech.getReprompt(speechText),
+                AlexaSpeechFactory.newPlainTextOutputSpeech(speechText),
+                AlexaSpeechFactory.newReprompt(speechText),
                 AlexaCardFactory.newSimpleCard(cardTitle, speechText));
     }
 
     public static SpeechletResponse getAskResponse(String cardTitle, String cardText, String speechText) {
         return SpeechletResponse.newAskResponse(
-                AlexaSpeech.getPlainTextOutputSpeech(speechText),
-                AlexaSpeech.getReprompt(speechText),
+                AlexaSpeechFactory.newPlainTextOutputSpeech(speechText),
+                AlexaSpeechFactory.newReprompt(speechText),
                 AlexaCardFactory.newSimpleCard(cardTitle, cardText));
     }
 
     public static SpeechletResponse getAskResponse(String cardTitle, String cardText, String cardSmallImageUrl, String cardLargeImageUrl, String speechText) {
         return SpeechletResponse.newAskResponse(
-                AlexaSpeech.getPlainTextOutputSpeech(speechText),
-                AlexaSpeech.getReprompt(speechText),
+                AlexaSpeechFactory.newPlainTextOutputSpeech(speechText),
+                AlexaSpeechFactory.newReprompt(speechText),
                 AlexaCardFactory.newStandardCard(cardTitle, cardText, cardSmallImageUrl, cardLargeImageUrl));
     }
 }

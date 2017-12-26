@@ -8,6 +8,6 @@ public class StatusRestTest {
 
     @Test
     public void getStatus() {
-        Assert.assertEquals("green", new StatusRest(AppsURL.BURGER_SHOP_HAMBURG).getStatus());
+        Assert.assertEquals("green", new StatusRest(AppsURL.BURGER_SHOP_HAMBURG).getStatusString());
     }
 }

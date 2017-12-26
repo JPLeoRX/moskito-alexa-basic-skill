@@ -1,34 +1,95 @@
 package moskito.speech.responses;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
+import com.amazon.speech.speechlet.Directive;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
+import com.amazon.speech.speechlet.interfaces.display.directive.RenderTemplateDirective;
+import com.amazon.speech.speechlet.interfaces.display.element.Image;
+import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate2;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
+import com.amazon.speech.ui.Card;
+
+import com.amazon.speech.ui.PlainTextOutputSpeech;
 import moskito.services.AppsURL;
-import moskito.services.DisplayHelper;
 import moskito.services.Responses;
+import moskito.speech.*;
 import moskito.services.rest.StatusRest;
-import moskito.speech.AlexaResponses;
 
-public interface MoskitoStatusResponse {
-    default SpeechletResponse getStatusResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
-        // Read the data
-        StatusRest status = new StatusRest(AppsURL.current);
+import java.util.List;
 
-        String cardTitle = Responses.get("StatusResponseTitle");
-        String speechText = Responses.get("StatusResponseDefault").replace("${status}", status.getStatus());
+public class MoskitoStatusResponse extends IntentResponse {
+    private StatusRest status;
 
-        if (DisplayHelper.hasDisplay(requestEnvelope))
-            return AlexaResponses.getResponse(
-                    cardTitle,
-                    speechText,
-                    speechText,
-                    "https://s3.amazonaws.com/hurricane-data/hurricaneBackground.png",
-                    1024,
-                    600,
-                    Template.BackButtonBehavior.HIDDEN,
-                    true);
-        else
-            return AlexaResponses.getTellResponse(cardTitle, speechText);
+    public MoskitoStatusResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
+        super(requestEnvelope);
+    }
+
+    // Initialization
+    //------------------------------------------------------------------------------------------------------------------
+    @Override
+    protected void initializeObjectRest() {
+        status = new StatusRest(AppsURL.current);
+    }
+
+    @Override
+    protected void initializeCardTitle() {
+        this.cardTitle = Responses.get("StatusResponseTitle");
+    }
+
+    @Override
+    protected void initializeCardText() {
+        this.cardText = Responses.get("StatusResponseDefault").replace("${status}", status.getStatusString());
+
+    }
+
+    @Override
+    protected void initializeSpeechText() {
+
+    }
+    //------------------------------------------------------------------------------------------------------------------
+
+    @Override
+    protected SpeechletResponse getResponseWithDisplay() {
+        this.initializeObjectRest();
+        this.initializeCardTitle();
+        this.initializeCardText();
+
+        // Create card
+        Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
+
+        // Create speech
+        PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
+
+        // Create text content
+        BodyTemplate2.TextContent textContent = new BodyTemplate2.TextContent();
+        textContent.setPrimaryText(AlexaTextFieldFactory.newPlainText(cardText));
+
+        // Create image
+        Image image = AlexaImageFactory.newImage(status.getStatusImageUrl(), 75, 75);
+
+        // Create template
+        BodyTemplate2 template = new BodyTemplate2();
+        template.setTitle(cardTitle);
+        template.setTextContent(textContent);
+        template.setBackButtonBehavior(Template.BackButtonBehavior.HIDDEN);
+        template.setImage(image);
+
+        // Create render directive
+        RenderTemplateDirective renderTemplateDirective = AlexaScreen.getRenderTemplateDirective(template);
+
+        // Create list of directives
+        List<Directive> directives = AlexaScreen.getListOfDirectives(renderTemplateDirective);
+
+        return AlexaResponses.getResponse(speech, card, directives, true);
+    }
+
+    @Override
+    protected SpeechletResponse getResponse() {
+        this.initializeObjectRest();
+        this.initializeCardTitle();
+        this.initializeCardText();
+        this.initializeSpeechText();
+        return AlexaResponses.getTellResponse(cardTitle, cardText, speechText);
     }
 }

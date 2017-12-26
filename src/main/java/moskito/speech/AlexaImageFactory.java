@@ -1,4 +1,4 @@
-package moskito.services.images;
+package moskito.speech;
 
 import com.amazon.speech.speechlet.interfaces.display.element.Image;
 import com.amazon.speech.speechlet.interfaces.display.element.ImageInstance;
@@ -6,8 +6,8 @@ import com.amazon.speech.speechlet.interfaces.display.element.ImageInstance;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageHelper {
-    public static Image getImage(String imageUrl, int imageWidth, int imageHeight) {
+public class AlexaImageFactory {
+    public static Image newImage(String imageUrl, int imageWidth, int imageHeight) {
         ImageInstance imageInstance = new ImageInstance();
         imageInstance.setUrl(imageUrl);
         imageInstance.setHeightPixels(imageHeight);

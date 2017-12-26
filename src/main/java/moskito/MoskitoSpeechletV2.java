@@ -8,6 +8,7 @@ import moskito.services.IntentNames;
 import moskito.services.Responses;
 import moskito.speech.MoskitoSpeechletResponse;
 import moskito.speech.responses.MoskitoAlertsResponse;
+import moskito.speech.responses.MoskitoStatusResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -60,8 +61,10 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
             return getErrorResponse();
 
         // Status
-        else if (IntentNames.STATUS_INTENT.equals(intent.getName()))
-            return getStatusResponse(requestEnvelope);
+        else if (IntentNames.STATUS_INTENT.equals(intent.getName())) {
+            MoskitoStatusResponse moskitoStatusResponse = new MoskitoStatusResponse(requestEnvelope);
+            return moskitoStatusResponse.respond();
+        }
 
         // Thresholds
         else if (IntentNames.THRESHOLDS_INTENT.equals(intent.getName()))

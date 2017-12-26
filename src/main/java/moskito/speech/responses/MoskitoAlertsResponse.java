@@ -13,7 +13,7 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import moskito.services.AppsURL;
 import moskito.services.IntentNames;
 import moskito.services.Responses;
-import moskito.services.images.ImageHelper;
+import moskito.speech.AlexaImageFactory;
 import moskito.services.rest.AlertsRest;
 import moskito.services.rest.basic_entities.Alert;
 import moskito.speech.*;
@@ -128,14 +128,14 @@ public class MoskitoAlertsResponse extends IntentResponse {
                 Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
 
                 // Create speech
-                PlainTextOutputSpeech speech = AlexaSpeech.getPlainTextOutputSpeech(speechText);
+                PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
 
                 List<ListTemplate1.ListItem> listItems = new LinkedList<>();
                 for (int i = 0; i < numberOfAlerts; i++) {
                     Alert a = alerts.get(i);
                     ListTemplate1.ListItem item = new ListTemplate1.ListItem();
 
-                    item.setImage(ImageHelper.getImage("https://www.moskito.org/applications/control/" + a.getStatusNewName().toLowerCase() + ".png", 75, 75));
+                    item.setImage(AlexaImageFactory.newImage("https://www.moskito.org/applications/control/" + a.getStatusNewName().toLowerCase() + ".png", 75, 75));
 
                     item.setTextContent(AlexaTextContentFactory.newTextContentList1(
                             a.getThresholdName(),
@@ -149,23 +149,12 @@ public class MoskitoAlertsResponse extends IntentResponse {
                 listTemplate1.setTitle(cardTitle);
                 listTemplate1.setBackButtonBehavior(Template.BackButtonBehavior.HIDDEN);
 
-
-//                // Create text content
-//                BodyTemplate2.TextContent screenText = AlexaTextContentFactory.getTextContent2(speechText);
-//
-//                // Create image content
-//                Image backgroundImage = ImageHelper.getImage(imageUrl, imageWidth, imageHeight);
-//                Image image = ImageHelper.getImage("http://burgershop-control.demo.moskito.org/moskito-control/img/smiley_green.png", 580, 580);
-//
-//                // Create template
-//                Template template = AlexaScreen.getBodyTemplate2(cardTitle, cardTitle, screenText, backgroundImage, image, backButtonBehavior);
-//
-//                // Create render directive
+                // Create render directive
                 RenderTemplateDirective renderTemplateDirective = AlexaScreen.getRenderTemplateDirective(listTemplate1);
-//
-//                // Create list of directives
+
+                // Create list of directives
                 List<Directive> directives = AlexaScreen.getListOfDirectives(renderTemplateDirective);
-//
+
                 return AlexaResponses.getResponse(speech, card, directives, true);
             }
 

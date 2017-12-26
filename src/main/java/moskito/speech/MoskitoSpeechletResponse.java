@@ -12,7 +12,7 @@ import moskito.speech.responses.MoskitoThresholdsResponse;
 
 import java.util.List;
 
-public interface MoskitoSpeechletResponse extends SpeechletResponseLogic, MoskitoStatusResponse, MoskitoThresholdsResponse {
+public interface MoskitoSpeechletResponse extends SpeechletResponseLogic, MoskitoThresholdsResponse {
 
     // Basic responses
     //------------------------------------------------------------------------------------------------------------------

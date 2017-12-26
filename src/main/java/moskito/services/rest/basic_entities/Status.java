@@ -21,6 +21,10 @@ public enum Status {
         return Responses.get("StatusColor" + name);
     }
 
+    public String getImageUrl() {
+        return Responses.get("StatusImageUrl").replace("${status}", name.toLowerCase());
+    }
+
     public static Status getValueByName(String name) {
         for (Status value : Status.values())
             if (value.getName().toLowerCase().equals(name.toLowerCase()))

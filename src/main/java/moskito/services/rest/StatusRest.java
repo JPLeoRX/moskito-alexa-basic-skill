@@ -30,7 +30,19 @@ public final class StatusRest extends ObjectRest {
         return "status";
     }
 
-    public String getStatus() {
+    public Status getStatus() {
+        return status;
+    }
+
+    public String getStatusName() {
+        return status.getName();
+    }
+
+    public String getStatusString() {
         return status.getString();
+    }
+
+    public String getStatusImageUrl() {
+        return status.getImageUrl();
     }
 }
