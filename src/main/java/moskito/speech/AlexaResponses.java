@@ -9,6 +9,10 @@ import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import com.amazon.speech.ui.Card;
 import com.amazon.speech.ui.OutputSpeech;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
+import moskito.speech.helpers.AlexaCardFactory;
+import moskito.speech.helpers.AlexaImageFactory;
+import moskito.speech.helpers.AlexaSpeechFactory;
+import moskito.speech.helpers.AlexaTextContentFactory;
 
 import java.util.List;
 

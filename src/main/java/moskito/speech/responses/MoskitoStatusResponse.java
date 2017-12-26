@@ -15,6 +15,10 @@ import moskito.services.AppsURL;
 import moskito.services.Responses;
 import moskito.speech.*;
 import moskito.services.rest.StatusRest;
+import moskito.speech.helpers.AlexaCardFactory;
+import moskito.speech.helpers.AlexaImageFactory;
+import moskito.speech.helpers.AlexaSpeechFactory;
+import moskito.speech.helpers.AlexaTextFieldFactory;
 
 import java.util.List;
 
@@ -29,7 +33,7 @@ public class MoskitoStatusResponse extends IntentResponse {
     //------------------------------------------------------------------------------------------------------------------
     @Override
     protected void initializeObjectRest() {
-        status = new StatusRest(AppsURL.current);
+        this.status = new StatusRest(AppsURL.current);
     }
 
     @Override
@@ -45,6 +49,7 @@ public class MoskitoStatusResponse extends IntentResponse {
 
     @Override
     protected void initializeSpeechText() {
+        this.speechText = Responses.get("StatusResponseDefault").replace("${status}", status.getStatusString());
 
     }
     //------------------------------------------------------------------------------------------------------------------
@@ -54,6 +59,7 @@ public class MoskitoStatusResponse extends IntentResponse {
         this.initializeObjectRest();
         this.initializeCardTitle();
         this.initializeCardText();
+        this.initializeSpeechText();
 
         // Create card
         Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
@@ -90,6 +96,7 @@ public class MoskitoStatusResponse extends IntentResponse {
         this.initializeCardTitle();
         this.initializeCardText();
         this.initializeSpeechText();
+
         return AlexaResponses.getTellResponse(cardTitle, cardText, speechText);
     }
 }

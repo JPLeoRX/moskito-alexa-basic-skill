@@ -13,10 +13,13 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import moskito.services.AppsURL;
 import moskito.services.IntentNames;
 import moskito.services.Responses;
-import moskito.speech.AlexaImageFactory;
+import moskito.speech.helpers.AlexaCardFactory;
+import moskito.speech.helpers.AlexaImageFactory;
 import moskito.services.rest.AlertsRest;
 import moskito.services.rest.basic_entities.Alert;
 import moskito.speech.*;
+import moskito.speech.helpers.AlexaSpeechFactory;
+import moskito.speech.helpers.AlexaTextContentFactory;
 
 import java.util.LinkedList;
 import java.util.List;

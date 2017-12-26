@@ -1,7 +1,7 @@
 package moskito.services.images;
 
 import com.amazon.speech.speechlet.interfaces.display.element.Image;
-import moskito.speech.AlexaImageFactory;
+import moskito.speech.helpers.AlexaImageFactory;
 
 public enum ImageResources {
     ALEXA_LOGO ("https://s3.amazonaws.com/mkusters-images/alexa-logo.png", 640, 290),

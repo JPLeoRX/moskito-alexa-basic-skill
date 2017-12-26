@@ -1,4 +1,4 @@
-package moskito.speech;
+package moskito.speech.helpers;
 
 import com.amazon.speech.ui.Image;
 import com.amazon.speech.ui.Card;
@@ -41,7 +41,7 @@ public final class AlexaCardFactory {
         card.setText(text);
         card.setImage(image);
 
-        LOGGER.info("Created: {" + card + "}");
+        LOGGER.info("Created Card: {" + card + "}");
         return card;
     }
 
@@ -57,7 +57,7 @@ public final class AlexaCardFactory {
         card.setTitle(title);
         card.setContent(text);
 
-        LOGGER.info("Created: {" + card + "}");
+        LOGGER.info("Created Card: {" + card + "}");
         return card;
     }
 }

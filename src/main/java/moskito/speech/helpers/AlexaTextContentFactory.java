@@ -1,4 +1,4 @@
-package moskito.speech;
+package moskito.speech.helpers;
 
 import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate1;
 import com.amazon.speech.speechlet.interfaces.display.element.TripleTextContent;
@@ -24,16 +24,18 @@ public final class AlexaTextContentFactory {
 
         textContent.setPrimaryText(AlexaTextFieldFactory.newPlainText(primaryText));
 
-        LOGGER.info("Created: {" + textContent + "}");
+        LOGGER.info("Created Text Content: {" + textContent + "}");
         return textContent;
     }
 
-    public static BodyTemplate2.TextContent newTextContent2(String primaryText) {
+    public static BodyTemplate2.TextContent newTextContent2(String primaryText, String secondaryText, String tertiaryText) {
         BodyTemplate2.TextContent textContent = new BodyTemplate2.TextContent();
 
         textContent.setPrimaryText(AlexaTextFieldFactory.newPlainText(primaryText));
+        textContent.setSecondaryText(AlexaTextFieldFactory.newPlainText(secondaryText));
+        textContent.setTertiaryText(AlexaTextFieldFactory.newPlainText(tertiaryText));
 
-        LOGGER.info("Created: {" + textContent + "}");
+        LOGGER.info("Created Text Content: {" + textContent + "}");
         return textContent;
     }
 
@@ -44,7 +46,7 @@ public final class AlexaTextContentFactory {
         textContent.setSecondaryText(AlexaTextFieldFactory.newPlainText(secondaryText));
         textContent.setTertiaryText(AlexaTextFieldFactory.newPlainText(tertiaryText));
 
-        LOGGER.info("Created: {" + textContent + "}");
+        LOGGER.info("Created Text Content: {" + textContent + "}");
         return textContent;
     }
 }
