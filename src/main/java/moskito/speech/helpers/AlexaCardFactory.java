@@ -1,16 +1,13 @@
 package moskito.speech.helpers;
 
-import com.amazon.speech.ui.Image;
-import com.amazon.speech.ui.Card;
-import com.amazon.speech.ui.SimpleCard;
-import com.amazon.speech.ui.StandardCard;
+import com.amazon.speech.ui.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
  * Helper methods to create new cards, classes derived from {@link Card}
  *
- * Creates {@link StandardCard}(title-text-image) and {@link SimpleCard} (title-text)
+ * Creates {@link StandardCard}(title-text-image), {@link SimpleCard} (title-text) and {@link LinkAccountCard} (title)
  *
  * @author Leo Ertuna
  */
@@ -56,6 +53,20 @@ public final class AlexaCardFactory {
         SimpleCard card = new SimpleCard();
         card.setTitle(title);
         card.setContent(text);
+
+        LOGGER.info("Created Card: {" + card + "}");
+        return card;
+    }
+
+    /**
+     * Link Account Card is a special card that should be shown if the user hasn't linked their account yet
+     * @param title card title
+     * @return link account card
+     */
+    public static LinkAccountCard newLinkAccountCard(String title) {
+        // Create card
+        LinkAccountCard card = new LinkAccountCard();
+        card.setTitle(title);
 
         LOGGER.info("Created Card: {" + card + "}");
         return card;

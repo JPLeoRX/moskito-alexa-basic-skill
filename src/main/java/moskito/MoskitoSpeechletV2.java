@@ -55,6 +55,14 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
         // Get intent
         Intent intent = requestEnvelope.getRequest().getIntent();
 
+        // Get user
+        User user = requestEnvelope.getSession().getUser();
+        if (user != null)
+            LOGGER.info("User: id={" + user.getUserId() + "}, accessToken={" + user.getAccessToken() + "}");
+        /**
+         * In the Java library, User.getAccessToken() returns null if the user has not successfully linked their account.
+         */
+
         // If there is no intent
         if (intent == null) {
             LOGGER.error("Intent is null");
