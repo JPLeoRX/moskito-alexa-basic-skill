@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Leo Ertuna
  */
-public class AlexaImageFactory {
+public final class AlexaImageFactory {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private AlexaImageFactory() {

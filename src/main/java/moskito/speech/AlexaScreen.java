@@ -33,16 +33,4 @@ public class AlexaScreen {
     }
 
 
-    public static RenderTemplateDirective getRenderTemplateDirective(Template template) {
-        RenderTemplateDirective renderTemplateDirective = new RenderTemplateDirective();
-        renderTemplateDirective.setTemplate(template);
-        return renderTemplateDirective;
-    }
-
-    public static List<Directive> getListOfDirectives(Directive ... directivesArray) {
-        List<Directive> directivesList = new ArrayList<>();
-        for(Directive directive : directivesArray)
-            directivesList.add(directive);
-        return directivesList;
-    }
 }

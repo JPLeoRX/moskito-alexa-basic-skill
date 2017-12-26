@@ -38,8 +38,16 @@ public final class Threshold {
         return name;
     }
 
-    public String getStatus() {
+    public String getStatusName() {
+        return status.getName();
+    }
+
+    public String getStatusString() {
         return status.getString();
+    }
+
+    public String getStatusImageUrl() {
+        return status.getImageUrl();
     }
 
     public String getValue() {

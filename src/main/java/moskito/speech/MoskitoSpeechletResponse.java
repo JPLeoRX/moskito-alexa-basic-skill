@@ -2,33 +2,27 @@ package moskito.speech;
 
 import com.amazon.speech.speechlet.SpeechletResponse;
 
-import moskito.services.AppsURL;
 import moskito.services.Responses;
-import moskito.services.rest.*;
-import moskito.services.rest.basic_entities.Alert;
-import moskito.services.rest.basic_entities.Threshold;
-import moskito.speech.responses.MoskitoStatusResponse;
+import moskito.speech.helpers.AlexaResponseFactory;
 import moskito.speech.responses.MoskitoThresholdsResponse;
 
-import java.util.List;
-
-public interface MoskitoSpeechletResponse extends SpeechletResponseLogic, MoskitoThresholdsResponse {
+public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
 
     // Basic responses
     //------------------------------------------------------------------------------------------------------------------
     @Override
     default SpeechletResponse getWelcomeResponse() {
-        return AlexaResponses.getAskResponse(Responses.get("Title"), Responses.get("WelcomeMessage"));
+        return AlexaResponseFactory.newAskResponse(Responses.get("Title"), Responses.get("WelcomeMessage"), Responses.get("WelcomeMessage"));
     }
 
     @Override
     default SpeechletResponse getHelpResponse() {
-        return AlexaResponses.getAskResponse(Responses.get("Title"), Responses.get("HelpMessage"));
+        return AlexaResponseFactory.newAskResponse(Responses.get("Title"), Responses.get("HelpMessage"), Responses.get("HelpMessage"));
     }
 
     @Override
     default SpeechletResponse getErrorResponse() {
-        return AlexaResponses.getAskResponse(Responses.get("Title"), Responses.get("ErrorMessage"));
+        return AlexaResponseFactory.newAskResponse(Responses.get("Title"), Responses.get("ErrorMessage"), Responses.get("ErrorMessage"));
     }
     //------------------------------------------------------------------------------------------------------------------
 }

@@ -13,12 +13,8 @@ import com.amazon.speech.ui.Card;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import moskito.services.AppsURL;
 import moskito.services.Responses;
-import moskito.speech.*;
 import moskito.services.rest.StatusRest;
-import moskito.speech.helpers.AlexaCardFactory;
-import moskito.speech.helpers.AlexaImageFactory;
-import moskito.speech.helpers.AlexaSpeechFactory;
-import moskito.speech.helpers.AlexaTextFieldFactory;
+import moskito.speech.helpers.*;
 
 import java.util.List;
 
@@ -43,7 +39,7 @@ public class MoskitoStatusResponse extends IntentResponse {
 
     @Override
     protected void initializeCardText() {
-        this.cardText = Responses.get("StatusResponseDefault").replace("${status}", status.getStatusString());
+        this.cardText = speechText;
 
     }
 
@@ -58,8 +54,8 @@ public class MoskitoStatusResponse extends IntentResponse {
     protected SpeechletResponse getResponseWithDisplay() {
         this.initializeObjectRest();
         this.initializeCardTitle();
-        this.initializeCardText();
         this.initializeSpeechText();
+        this.initializeCardText();
 
         // Create card
         Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
@@ -68,26 +64,21 @@ public class MoskitoStatusResponse extends IntentResponse {
         PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
 
         // Create text content
-        BodyTemplate2.TextContent textContent = new BodyTemplate2.TextContent();
-        textContent.setPrimaryText(AlexaTextFieldFactory.newPlainText(cardText));
+        BodyTemplate2.TextContent textContent = AlexaTextContentFactory.newTextContent2(cardText, "", "");
 
         // Create image
         Image image = AlexaImageFactory.newImage(status.getStatusImageUrl(), 75, 75);
 
         // Create template
-        BodyTemplate2 template = new BodyTemplate2();
-        template.setTitle(cardTitle);
-        template.setTextContent(textContent);
-        template.setBackButtonBehavior(Template.BackButtonBehavior.HIDDEN);
-        template.setImage(image);
+        BodyTemplate2 template = AlexaTemplateFactory.newBodyTemplate2(cardTitle, textContent, image, null, Template.BackButtonBehavior.HIDDEN);
 
         // Create render directive
-        RenderTemplateDirective renderTemplateDirective = AlexaScreen.getRenderTemplateDirective(template);
+        RenderTemplateDirective renderTemplateDirective = AlexaTemplateFactory.newRenderTemplateDirective(template);
 
         // Create list of directives
-        List<Directive> directives = AlexaScreen.getListOfDirectives(renderTemplateDirective);
+        List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective);
 
-        return AlexaResponses.getResponse(speech, card, directives, true);
+        return AlexaResponseFactory.newResponse(speech, card, directives, true);
     }
 
     @Override
@@ -97,6 +88,6 @@ public class MoskitoStatusResponse extends IntentResponse {
         this.initializeCardText();
         this.initializeSpeechText();
 
-        return AlexaResponses.getTellResponse(cardTitle, cardText, speechText);
+        return AlexaResponseFactory.newTellResponse(cardTitle, cardText, speechText);
     }
 }
