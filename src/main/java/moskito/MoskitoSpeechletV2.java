@@ -7,10 +7,7 @@ import com.amazon.speech.speechlet.*;
 import moskito.services.IntentNames;
 import moskito.services.Responses;
 import moskito.speech.MoskitoSpeechletResponse;
-import moskito.speech.responses.DefaultHelpResponse;
-import moskito.speech.responses.MoskitoAlertsResponse;
-import moskito.speech.responses.MoskitoStatusResponse;
-import moskito.speech.responses.MoskitoThresholdsResponse;
+import moskito.speech.responses.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -61,7 +58,8 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
         // If there is no intent
         if (intent == null) {
             LOGGER.error("Intent is null");
-            return getErrorResponse();
+            DefaultErrorResponse defaultErrorResponse = new DefaultErrorResponse(requestEnvelope);
+            return defaultErrorResponse.respond();
         }
 
         // Status
@@ -95,7 +93,8 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
         // If the intent is not recognized
         else {
             LOGGER.error("Intent is not recognized");
-            return getErrorResponse();
+            DefaultErrorResponse defaultErrorResponse = new DefaultErrorResponse(requestEnvelope);
+            return defaultErrorResponse.respond();
         }
     }
 }

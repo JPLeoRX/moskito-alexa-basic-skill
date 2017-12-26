@@ -26,7 +26,7 @@ public interface MoskitoSpeechletResponse extends SpeechletResponseLogic {
 
     @Override
     default SpeechletResponse getErrorResponse() {
-        return AlexaResponseFactory.newAskResponse(Responses.get("Title"), Responses.get("ErrorMessage"), Responses.get("ErrorMessage"));
+        return null;
     }
     //------------------------------------------------------------------------------------------------------------------
 }
