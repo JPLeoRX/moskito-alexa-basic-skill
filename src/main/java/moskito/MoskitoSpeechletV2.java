@@ -7,6 +7,9 @@ import com.amazon.speech.speechlet.*;
 import moskito.services.IntentNames;
 import moskito.services.Responses;
 import moskito.speech.MoskitoSpeechletResponse;
+import moskito.speech.helpers.AlexaCardFactory;
+import moskito.speech.helpers.AlexaResponseFactory;
+import moskito.speech.helpers.AlexaSpeechFactory;
 import moskito.speech.responses.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -89,6 +92,17 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
             LOGGER.info("Intent: " + intent.getName());
             MoskitoAlertsResponse moskitoAlertsResponse = new MoskitoAlertsResponse(requestEnvelope);
             return moskitoAlertsResponse.respond();
+        }
+
+        // Login
+        else if (IntentNames.LOGIN_INTENT.equals(intent.getName())) {
+            LOGGER.info("Intent: " + intent.getName());
+            return AlexaResponseFactory.newResponse(
+                    AlexaSpeechFactory.newPlainTextOutputSpeech("Login"),
+                    AlexaCardFactory.newLinkAccountCard("MoSKito Login"),
+                    null,
+                    true
+            );
         }
 
         // Amazon Help

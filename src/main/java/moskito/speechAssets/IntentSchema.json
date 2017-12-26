@@ -10,6 +10,9 @@
       "intent": "ThresholdsIntent"
     },
     {
+      "intent": "LoginIntent"
+    },
+    {
       "intent": "AlertsIntent",
       "slots": [
         {
