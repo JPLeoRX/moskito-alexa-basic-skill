@@ -47,6 +47,11 @@ public final class StringHelper {
         return Responses.get("HelperDate") + " " + monthString(Integer.valueOf(month)) + " " + day + ", " + Responses.get("HelperTime") + " " + hour + ":" + minute + ":" + second;
     }
 
+    /**
+     * Convert timestamp returned by moskito rest api into a readable form
+     * @param timestamp timestamp from moskito rest api
+     * @return DAY-MONTH HOUR:MINUTE
+     */
     public static String trimDateAndTimeForDisplay(String timestamp) {
         String[] sp = timestamp.split("T");
         String[] date = sp[0].split("-");
@@ -60,7 +65,7 @@ public final class StringHelper {
         return day + "-" + monthString(Integer.valueOf(month)).substring(0, 3) + " " + hour + ":" + minute;
     }
 
-    public static String trimDouble(double a) {
+    private static String trimDouble(double a) {
         return String.valueOf((int) a);
     }
 

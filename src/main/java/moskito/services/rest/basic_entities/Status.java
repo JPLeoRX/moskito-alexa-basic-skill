@@ -3,7 +3,7 @@ package moskito.services.rest.basic_entities;
 import moskito.services.Responses;
 
 /**
- * Helper Enumerator
+ * Status Enumerator
  */
 public enum Status {
     GREEN("Green"), YELLOW("Yellow"), RED("Red"), OFF("Off");

@@ -48,6 +48,7 @@ public class DefaultHelpResponse extends IntentResponse {
     //------------------------------------------------------------------------------------------------------------------
     @Override
     protected SpeechletResponse getResponseWithDisplay() {
+        // Initialize
         this.initializeCardTitle();
         this.initializeSpeechText();
         this.initializeCardText();
@@ -79,10 +80,12 @@ public class DefaultHelpResponse extends IntentResponse {
 
     @Override
     protected SpeechletResponse getResponse() {
+        // Initialize
         this.initializeCardTitle();
         this.initializeSpeechText();
         this.initializeCardText();
 
+        // Return response
         return AlexaResponseFactory.newAskResponse(cardTitle, cardText, speechText);
     }
     //------------------------------------------------------------------------------------------------------------------
