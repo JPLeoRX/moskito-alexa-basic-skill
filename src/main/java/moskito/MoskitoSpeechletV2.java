@@ -7,6 +7,7 @@ import com.amazon.speech.speechlet.*;
 import moskito.services.IntentNames;
 import moskito.services.Responses;
 import moskito.speech.MoskitoSpeechletResponse;
+import moskito.speech.responses.DefaultHelpResponse;
 import moskito.speech.responses.MoskitoAlertsResponse;
 import moskito.speech.responses.MoskitoStatusResponse;
 import moskito.speech.responses.MoskitoThresholdsResponse;
@@ -87,7 +88,8 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
         // Amazon Help
         else if (IntentNames.AMAZON_HELP_INTENT.equals(intent.getName())) {
             LOGGER.info("Intent: " + intent.getName());
-            return getHelpResponse();
+            DefaultHelpResponse helpResponse = new DefaultHelpResponse(requestEnvelope);
+            return helpResponse.respond();
         }
 
         // If the intent is not recognized

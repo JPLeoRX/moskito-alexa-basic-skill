@@ -4,24 +4,22 @@ import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.Directive;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
+import com.amazon.speech.speechlet.interfaces.core.Hint;
+import com.amazon.speech.speechlet.interfaces.core.PlainTextHint;
+import com.amazon.speech.speechlet.interfaces.core.directive.HintDirective;
 import com.amazon.speech.speechlet.interfaces.display.directive.RenderTemplateDirective;
 import com.amazon.speech.speechlet.interfaces.display.element.Image;
 import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate2;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import com.amazon.speech.ui.Card;
-
 import com.amazon.speech.ui.PlainTextOutputSpeech;
-import moskito.services.AppsURL;
 import moskito.services.Responses;
-import moskito.services.rest.StatusRest;
 import moskito.speech.helpers.*;
 
 import java.util.List;
 
-public class MoskitoStatusResponse extends IntentResponse {
-    private StatusRest status;
-
-    public MoskitoStatusResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
+public class DefaultHelpResponse extends IntentResponse {
+    public DefaultHelpResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
         super(requestEnvelope);
     }
 
@@ -29,24 +27,22 @@ public class MoskitoStatusResponse extends IntentResponse {
     //------------------------------------------------------------------------------------------------------------------
     @Override
     protected void initializeObjectRest() {
-        this.status = new StatusRest(AppsURL.current);
+
     }
 
     @Override
     protected void initializeCardTitle() {
-        this.cardTitle = Responses.get("StatusResponseTitle");
+        this.cardTitle = Responses.get("HelpTitle");
     }
 
     @Override
     protected void initializeCardText() {
         this.cardText = speechText;
-
     }
 
     @Override
     protected void initializeSpeechText() {
-        this.speechText = Responses.get("StatusResponseDefault").replace("${status}", status.getStatusString());
-
+        this.speechText = Responses.get("HelpMessage") + " " + Responses.get("HelpMessageHint");
     }
     //------------------------------------------------------------------------------------------------------------------
 
@@ -55,7 +51,6 @@ public class MoskitoStatusResponse extends IntentResponse {
     //------------------------------------------------------------------------------------------------------------------
     @Override
     protected SpeechletResponse getResponseWithDisplay() {
-        this.initializeObjectRest();
         this.initializeCardTitle();
         this.initializeSpeechText();
         this.initializeCardText();
@@ -67,19 +62,23 @@ public class MoskitoStatusResponse extends IntentResponse {
         PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
 
         // Create text content
-        BodyTemplate2.TextContent textContent = AlexaTextContentFactory.newTextContent2(cardText, "", "");
-
-        // Create image
-        Image image = AlexaImageFactory.newImage(status.getStatusImageUrl(), 75, 75);
+        BodyTemplate2.TextContent textContent = AlexaTextContentFactory.newTextContent2(Responses.get("HelpMessage"), "", "");
 
         // Create template
-        BodyTemplate2 template = AlexaTemplateFactory.newBodyTemplate2(cardTitle, textContent, image, null, Template.BackButtonBehavior.HIDDEN);
+        BodyTemplate2 template = AlexaTemplateFactory.newBodyTemplate2(cardTitle, textContent, null, null, Template.BackButtonBehavior.HIDDEN);
+
+
 
         // Create render directive
         RenderTemplateDirective renderTemplateDirective = AlexaTemplateFactory.newRenderTemplateDirective(template);
 
+        PlainTextHint textHint = new PlainTextHint();
+        textHint.setText(Responses.get("HelpMessageHint"));
+        HintDirective hintDirective = new HintDirective();
+        hintDirective.setHint(textHint);
+
         // Create list of directives
-        List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective);
+        List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective, hintDirective);
 
         // Return response
         return AlexaResponseFactory.newResponse(speech, card, directives, true);
@@ -87,12 +86,11 @@ public class MoskitoStatusResponse extends IntentResponse {
 
     @Override
     protected SpeechletResponse getResponse() {
-        this.initializeObjectRest();
         this.initializeCardTitle();
-        this.initializeCardText();
         this.initializeSpeechText();
+        this.initializeCardText();
 
-        return AlexaResponseFactory.newTellResponse(cardTitle, cardText, speechText);
+        return AlexaResponseFactory.newAskResponse(cardTitle, cardText, speechText);
     }
     //------------------------------------------------------------------------------------------------------------------
 }
