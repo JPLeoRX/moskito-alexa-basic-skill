@@ -4,11 +4,8 @@ import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.Directive;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
-import com.amazon.speech.speechlet.interfaces.core.Hint;
-import com.amazon.speech.speechlet.interfaces.core.PlainTextHint;
 import com.amazon.speech.speechlet.interfaces.core.directive.HintDirective;
 import com.amazon.speech.speechlet.interfaces.display.directive.RenderTemplateDirective;
-import com.amazon.speech.speechlet.interfaces.display.element.Image;
 import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate2;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import com.amazon.speech.ui.Card;
@@ -42,7 +39,7 @@ public class DefaultHelpResponse extends IntentResponse {
 
     @Override
     protected void initializeSpeechText() {
-        this.speechText = Responses.get("HelpMessage") + " " + Responses.get("HelpMessageHint");
+        this.speechText = Responses.get("HelpMessage") + " " + Responses.get("HelpMessageHint1");
     }
     //------------------------------------------------------------------------------------------------------------------
 
@@ -67,15 +64,11 @@ public class DefaultHelpResponse extends IntentResponse {
         // Create template
         BodyTemplate2 template = AlexaTemplateFactory.newBodyTemplate2(cardTitle, textContent, null, null, Template.BackButtonBehavior.HIDDEN);
 
-
-
         // Create render directive
         RenderTemplateDirective renderTemplateDirective = AlexaTemplateFactory.newRenderTemplateDirective(template);
 
-        PlainTextHint textHint = new PlainTextHint();
-        textHint.setText(Responses.get("HelpMessageHint"));
-        HintDirective hintDirective = new HintDirective();
-        hintDirective.setHint(textHint);
+        // Create hint directive
+        HintDirective hintDirective = AlexaHintFactory.newHintDirective(Responses.get(HintRandomizer.getHintKey()));
 
         // Create list of directives
         List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective, hintDirective);
