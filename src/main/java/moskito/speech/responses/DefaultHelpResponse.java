@@ -1,19 +1,12 @@
 package moskito.speech.responses;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
-import com.amazon.speech.speechlet.Directive;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
-import com.amazon.speech.speechlet.interfaces.core.directive.HintDirective;
-import com.amazon.speech.speechlet.interfaces.display.directive.RenderTemplateDirective;
-import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate2;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
-import com.amazon.speech.ui.Card;
-import com.amazon.speech.ui.PlainTextOutputSpeech;
 import moskito.services.Responses;
 import moskito.speech.helpers.*;
-
-import java.util.List;
+import moskito.speech.responses.core.IntentResponse;
 
 public class DefaultHelpResponse extends IntentResponse {
     public DefaultHelpResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {

@@ -16,6 +16,7 @@ import moskito.services.Responses;
 import moskito.speech.helpers.*;
 import moskito.services.rest.AlertsRest;
 import moskito.services.rest.basic_entities.Alert;
+import moskito.speech.responses.core.IntentResponse;
 
 import java.util.LinkedList;
 import java.util.List;

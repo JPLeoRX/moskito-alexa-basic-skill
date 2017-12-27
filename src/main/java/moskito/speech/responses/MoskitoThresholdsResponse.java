@@ -14,6 +14,7 @@ import moskito.services.Responses;
 import moskito.services.rest.ThresholdsRest;
 import moskito.services.rest.basic_entities.Threshold;
 import moskito.speech.helpers.*;
+import moskito.speech.responses.core.IntentResponse;
 
 import java.util.LinkedList;
 import java.util.List;

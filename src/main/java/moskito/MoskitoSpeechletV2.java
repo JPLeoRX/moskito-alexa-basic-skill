@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * @author Leo Ertuna
  */
-public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse {
+public class MoskitoSpeechletV2 implements SpeechletV2 {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
@@ -39,7 +39,8 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
         Responses.initialize(requestEnvelope.getRequest().getLocale());
 
         // Redirect into welcome response
-        return getWelcomeResponse();
+        DefaultWelcomeResponse welcomeResponse = new DefaultWelcomeResponse(requestEnvelope);
+        return welcomeResponse.respond();
     }
 
     @Override
@@ -63,19 +64,19 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
         if (user != null)
             LOGGER.info("User: id={" + user.getUserId() + "}, accessToken={" + user.getAccessToken() + "}");
 
-//        // If access token is null
-//        if (user.getAccessToken() == null) {
-//            LOGGER.info("User is not authorized");
-//            return AlexaResponseFactory.newResponse(
-//                    AlexaSpeechFactory.newPlainTextOutputSpeech("Please use the companion app to authenticate on Amazon to start using this skill"),
-//                    AlexaCardFactory.newLinkAccountCard(),
-//                    null,
-//                    false
-//            );
-//        }
-//        else {
-//            LOGGER.info("User is authorized: accessToken={" + user.getAccessToken() + "}");
-//        }
+        // If access token is null
+        if (user.getAccessToken() == null) {
+            LOGGER.info("User is not authorized");
+            return AlexaResponseFactory.newResponse(
+                    AlexaSpeechFactory.newPlainTextOutputSpeech("Please use the companion app to authenticate on Amazon to start using this skill"),
+                    AlexaCardFactory.newLinkAccountCard(),
+                    null,
+                    false
+            );
+        }
+        else {
+            LOGGER.info("User is authorized: accessToken={" + user.getAccessToken() + "}");
+        }
         /**
          * In the Java library, User.getAccessToken() returns null if the user has not successfully linked their account.
          */
