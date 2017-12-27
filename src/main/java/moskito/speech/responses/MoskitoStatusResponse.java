@@ -60,29 +60,37 @@ public class MoskitoStatusResponse extends IntentResponse {
         this.initializeSpeechText();
         this.initializeCardText();
 
-        // Create card
-        Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
+        return AlexaDisplayResponseFactory.newBodyTemplate2Response(
+                cardTitle, cardText, speechText,
+                speechText, "", "",
+                AlexaImageFactory.newImage(status.getStatusImageUrl(), 75, 75), null,
+                Template.BackButtonBehavior.HIDDEN,
+                true
+        );
 
-        // Create speech
-        PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
-
-        // Create text content
-        BodyTemplate2.TextContent textContent = AlexaTextContentFactory.newTextContent2(cardText, "", "");
-
-        // Create image
-        Image image = AlexaImageFactory.newImage(status.getStatusImageUrl(), 75, 75);
-
-        // Create template
-        BodyTemplate2 template = AlexaTemplateFactory.newBodyTemplate2(cardTitle, textContent, image, null, Template.BackButtonBehavior.HIDDEN);
-
-        // Create render directive
-        RenderTemplateDirective renderTemplateDirective = AlexaTemplateFactory.newRenderTemplateDirective(template);
-
-        // Create list of directives
-        List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective);
-
-        // Return response
-        return AlexaResponseFactory.newResponse(speech, card, directives, true);
+//        // Create card
+//        Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
+//
+//        // Create speech
+//        PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
+//
+//        // Create text content
+//        BodyTemplate2.TextContent textContent = AlexaTextContentFactory.newTextContent2(cardText, "", "");
+//
+//        // Create image
+//        Image image = AlexaImageFactory.newImage(status.getStatusImageUrl(), 75, 75);
+//
+//        // Create template
+//        BodyTemplate2 template = AlexaTemplateFactory.newBodyTemplate2(cardTitle, textContent, image, null, Template.BackButtonBehavior.HIDDEN);
+//
+//        // Create render directive
+//        RenderTemplateDirective renderTemplateDirective = AlexaTemplateFactory.newRenderTemplateDirective(template);
+//
+//        // Create list of directives
+//        List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective);
+//
+//        // Return response
+//        return AlexaResponseFactory.newResponse(speech, card, directives, true);
     }
 
     @Override
