@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Helper methods to deal with different responses
  *
- * Creates new Ask and Tell responses
+ * Creates new Ask, Tell and custom responses {@link SpeechletResponse}
  *
  * @author Leo Ertuna
  */

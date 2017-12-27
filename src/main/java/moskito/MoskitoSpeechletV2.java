@@ -62,6 +62,20 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
         User user = requestEnvelope.getSession().getUser();
         if (user != null)
             LOGGER.info("User: id={" + user.getUserId() + "}, accessToken={" + user.getAccessToken() + "}");
+
+        // If access token is null
+        if (user.getAccessToken() == null) {
+            LOGGER.info("User is not authorized");
+            return AlexaResponseFactory.newResponse(
+                    AlexaSpeechFactory.newPlainTextOutputSpeech("Please use the companion app to authenticate on Amazon to start using this skill"),
+                    AlexaCardFactory.newLinkAccountCard(),
+                    null,
+                    false
+            );
+        }
+        else {
+            LOGGER.info("User is authorized: accessToken={" + user.getAccessToken() + "}");
+        }
         /**
          * In the Java library, User.getAccessToken() returns null if the user has not successfully linked their account.
          */
@@ -99,7 +113,7 @@ public class MoskitoSpeechletV2 implements SpeechletV2, MoskitoSpeechletResponse
             LOGGER.info("Intent: " + intent.getName());
             return AlexaResponseFactory.newResponse(
                     AlexaSpeechFactory.newPlainTextOutputSpeech("Login"),
-                    AlexaCardFactory.newLinkAccountCard("MoSKito Login"),
+                    AlexaCardFactory.newLinkAccountCard(),
                     null,
                     true
             );

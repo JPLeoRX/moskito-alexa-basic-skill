@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Helper methods to create new cards, classes derived from {@link Card}
  *
- * Creates {@link StandardCard}(title-text-image), {@link SimpleCard} (title-text) and {@link LinkAccountCard} (title)
+ * Creates {@link StandardCard}(title-text-image), {@link SimpleCard} (title-text) and {@link LinkAccountCard}
  *
  * @author Leo Ertuna
  */
@@ -38,7 +38,7 @@ public final class AlexaCardFactory {
         card.setText(text);
         card.setImage(image);
 
-        LOGGER.info("Created Card: {" + card + "}");
+        LOGGER.info("Created Standard Card: {" + card + "}");
         return card;
     }
 
@@ -54,21 +54,19 @@ public final class AlexaCardFactory {
         card.setTitle(title);
         card.setContent(text);
 
-        LOGGER.info("Created Card: {" + card + "}");
+        LOGGER.info("Created Simple Card: {" + card + "}");
         return card;
     }
 
     /**
      * Link Account Card is a special card that should be shown if the user hasn't linked their account yet
-     * @param title card title
      * @return link account card
      */
-    public static LinkAccountCard newLinkAccountCard(String title) {
+    public static LinkAccountCard newLinkAccountCard() {
         // Create card
         LinkAccountCard card = new LinkAccountCard();
-        card.setTitle(title);
 
-        LOGGER.info("Created Card: {" + card + "}");
+        LOGGER.info("Created Link Account Card: {" + card + "}");
         return card;
     }
 }
