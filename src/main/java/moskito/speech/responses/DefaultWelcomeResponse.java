@@ -15,8 +15,8 @@ import moskito.speech.helpers.*;
 
 import java.util.List;
 
-public class DefaultErrorResponse extends IntentResponse {
-    public DefaultErrorResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
+public class DefaultWelcomeResponse extends IntentResponse {
+    public DefaultWelcomeResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
         super(requestEnvelope);
     }
 
@@ -29,7 +29,7 @@ public class DefaultErrorResponse extends IntentResponse {
 
     @Override
     protected void initializeCardTitle() {
-        this.cardTitle = Responses.get("ErrorTitle");
+        this.cardTitle = Responses.get("WelcomeTitle");
     }
 
     @Override
@@ -39,7 +39,7 @@ public class DefaultErrorResponse extends IntentResponse {
 
     @Override
     protected void initializeSpeechText() {
-        this.speechText = Responses.get("ErrorMessage");
+        this.speechText = Responses.get("WelcomeMessage");
     }
     //------------------------------------------------------------------------------------------------------------------
 

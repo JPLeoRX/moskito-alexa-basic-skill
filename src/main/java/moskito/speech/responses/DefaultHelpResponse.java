@@ -53,29 +53,37 @@ public class DefaultHelpResponse extends IntentResponse {
         this.initializeSpeechText();
         this.initializeCardText();
 
-        // Create card
-        Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
+        return AlexaDisplayResponseFactory.newBodyTemplate2andHintResponse(
+                cardTitle, cardText, speechText,
+                Responses.get("HelpMessage"), "","",
+                null, null, Template.BackButtonBehavior.HIDDEN,
+                Responses.get(HintRandomizer.getHintKey()),
+                true
+        );
 
-        // Create speech
-        PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
-
-        // Create text content
-        BodyTemplate2.TextContent textContent = AlexaTextContentFactory.newTextContent2(Responses.get("HelpMessage"), "", "");
-
-        // Create template
-        BodyTemplate2 template = AlexaTemplateFactory.newBodyTemplate2(cardTitle, textContent, null, null, Template.BackButtonBehavior.HIDDEN);
-
-        // Create render directive
-        RenderTemplateDirective renderTemplateDirective = AlexaTemplateFactory.newRenderTemplateDirective(template);
-
-        // Create hint directive
-        HintDirective hintDirective = AlexaHintFactory.newHintDirective(Responses.get(HintRandomizer.getHintKey()));
-
-        // Create list of directives
-        List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective, hintDirective);
-
-        // Return response
-        return AlexaResponseFactory.newResponse(speech, card, directives, true);
+//        // Create card
+//        Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
+//
+//        // Create speech
+//        PlainTextOutputSpeech speech = AlexaSpeechFactory.newPlainTextOutputSpeech(speechText);
+//
+//        // Create text content
+//        BodyTemplate2.TextContent textContent = AlexaTextContentFactory.newTextContent2(Responses.get("HelpMessage"), "", "");
+//
+//        // Create template
+//        BodyTemplate2 template = AlexaTemplateFactory.newBodyTemplate2(cardTitle, textContent, null, null, Template.BackButtonBehavior.HIDDEN);
+//
+//        // Create render directive
+//        RenderTemplateDirective renderTemplateDirective = AlexaTemplateFactory.newRenderTemplateDirective(template);
+//
+//        // Create hint directive
+//        HintDirective hintDirective = AlexaHintFactory.newHintDirective(Responses.get(HintRandomizer.getHintKey()));
+//
+//        // Create list of directives
+//        List<Directive> directives = AlexaTemplateFactory.newListOfDirectives(renderTemplateDirective, hintDirective);
+//
+//        // Return response
+//        return AlexaResponseFactory.newResponse(speech, card, directives, true);
     }
 
     @Override
