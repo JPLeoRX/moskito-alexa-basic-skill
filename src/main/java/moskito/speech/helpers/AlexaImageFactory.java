@@ -47,4 +47,13 @@ public final class AlexaImageFactory {
         LOGGER.info("Created Image: {" + image + "}");
         return image;
     }
+
+    /**
+     * Creates a new image for status object. It uses default size of the picture 75x75
+     * @param imageUrl url of the image
+     * @return image
+     */
+    public static Image newStatusImage(String imageUrl) {
+        return newImage(imageUrl, 75, 75);
+    }
 }

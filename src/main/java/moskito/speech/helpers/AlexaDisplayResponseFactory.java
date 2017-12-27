@@ -13,13 +13,17 @@ import moskito.services.Responses;
 
 import java.util.List;
 
-public class AlexaDisplayResponseFactory {
+public final class AlexaDisplayResponseFactory {
+    private AlexaDisplayResponseFactory() {
+
+    }
+
     public static SpeechletResponse newBodyTemplate2andHintResponse(String cardTitle, String cardText, String speechText,
-                                                             String primaryText, String secondaryText, String tertiaryText,
-                                                             Image image, Image backgroundImage,
-                                                             Template.BackButtonBehavior backButtonBehavior,
-                                                             String hintText,
-                                                             boolean shouldEndSession) {
+                                                                    String primaryText, String secondaryText, String tertiaryText,
+                                                                    Image image, Image backgroundImage,
+                                                                    Template.BackButtonBehavior backButtonBehavior,
+                                                                    String hintText,
+                                                                    boolean shouldEndSession) {
         // Create card
         Card card = AlexaCardFactory.newSimpleCard(cardTitle, cardText);
 
@@ -44,6 +48,8 @@ public class AlexaDisplayResponseFactory {
         // Return response
         return AlexaResponseFactory.newResponse(speech, card, directives, shouldEndSession);
     }
+
+
 
     public static SpeechletResponse newBodyTemplate2Response(String cardTitle, String cardText, String speechText,
                                                                     String primaryText, String secondaryText, String tertiaryText,

@@ -57,7 +57,7 @@ public class MoskitoStatusResponse extends IntentResponse {
         return AlexaDisplayResponseFactory.newBodyTemplate2Response(
                 cardTitle, cardText, speechText,
                 speechText, "", "",
-                AlexaImageFactory.newImage(status.getStatusImageUrl(), 75, 75), null,
+                AlexaImageFactory.newStatusImage(status.getStatusImageUrl()), null,
                 Template.BackButtonBehavior.HIDDEN,
                 true
         );

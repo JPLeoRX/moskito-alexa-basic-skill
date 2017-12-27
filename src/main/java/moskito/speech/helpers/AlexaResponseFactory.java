@@ -24,6 +24,15 @@ public final class AlexaResponseFactory {
 
     }
 
+    public static SpeechletResponse newLinkAccountResponse(String speechText) {
+        return AlexaResponseFactory.newResponse(
+                AlexaSpeechFactory.newPlainTextOutputSpeech(speechText),
+                AlexaCardFactory.newLinkAccountCard(),
+                null,
+                false
+        );
+    }
+
     public static SpeechletResponse newResponse(OutputSpeech outputSpeech, Card card, List<Directive> directives, boolean shouldEndSession) {
         SpeechletResponse response = new SpeechletResponse();
 

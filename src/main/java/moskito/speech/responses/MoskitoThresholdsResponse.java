@@ -97,10 +97,10 @@ public class MoskitoThresholdsResponse extends IntentResponse {
             listItems.add(AlexaListItemFactory.newListItem1(
                     AlexaTextContentFactory.newTextContentList1(
                             t.getName(),
-                            t.getStatusString() + " / " + t.getValue(),
-                            ""
+                            t.getStatusString() + " / " + t.getValue()
                     ),
-                    AlexaImageFactory.newImage(t.getStatusImageUrl(), 75, 75)));
+                    AlexaImageFactory.newStatusImage(t.getStatusImageUrl())
+            ));
         }
 
         // Create template

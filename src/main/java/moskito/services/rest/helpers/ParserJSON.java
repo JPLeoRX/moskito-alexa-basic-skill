@@ -26,11 +26,38 @@ public class ParserJSON {
         this.jsonObject = new JSONObject(this.jsonString);
     }
 
+    public ParserJSON(String url, String headerKey, String headerValue) {
+        this.url = url;
+        this.formJsonString(headerKey, headerValue);
+        this.jsonObject = new JSONObject(this.jsonString);
+    }
+
     private void formJsonString() {
         try {
             // Create a request and get the response
             HttpClient client = HttpClients.custom().build();
             HttpUriRequest request = RequestBuilder.get().setUri(url).setHeader(HttpHeaders.ACCEPT, "application/json").build();
+            HttpResponse response = client.execute(request);
+            HttpEntity entity = response.getEntity();
+
+            // Convert input stream into a string
+            jsonString = "";
+            Scanner scanner = new Scanner(entity.getContent());
+            while (scanner.hasNext())
+                jsonString += scanner.nextLine();
+            scanner.close();
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void formJsonString(String headerKey, String headerValue) {
+        try {
+            // Create a request and get the response
+            HttpClient client = HttpClients.custom().build();
+            HttpUriRequest request = RequestBuilder.get().setUri(url).setHeader(headerKey, headerValue).build();
             HttpResponse response = client.execute(request);
             HttpEntity entity = response.getEntity();
 

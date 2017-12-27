@@ -14,7 +14,7 @@
         <property name="timestampTolerance" value="150"/>
 
         <aws-lambda.version>1.0.0</aws-lambda.version>
-        <alexa-skills-kit.version>1.5.0</alexa-skills-kit.version>
+        <alexa-skills-kit.version>1.8.1</alexa-skills-kit.version>
         <jetty.version>9.0.6.v20130930</jetty.version>
         <log4j.version>2.10.0</log4j.version>
         <slf4j.version>1.7.10</slf4j.version>
@@ -27,6 +27,26 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20171018</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>fluent-hc</artifactId>
+            <version>4.5.4</version>
         </dependency>
 
         <!-- Amazon Alexa Skills Kit -->

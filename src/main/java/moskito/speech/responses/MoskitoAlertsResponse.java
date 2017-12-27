@@ -111,17 +111,21 @@ public class MoskitoAlertsResponse extends IntentResponse {
     protected SpeechletResponse getResponseWithDisplay() {
         this.initializeNumberOfAlerts();
         this.initializeObjectRest();
+        this.initializeCardTitle();
 
         // If the user asks for too many alerts
         if (numberOfAlerts > alerts.size()) {
             // Return an error response
-            return AlexaResponseFactory.newAskResponse(cardTitle, Responses.get("AlertsResponseRetry"), Responses.get("AlertsResponseRetry"));
+            return AlexaDisplayResponseFactory.newBodyTemplate2Response(
+                    cardTitle, Responses.get("AlertsResponseRetry"), Responses.get("AlertsResponseRetry"),
+                    Responses.get("AlertsResponseRetry"), "", "",
+                    null, null, Template.BackButtonBehavior.HIDDEN, false
+                    );
         }
 
         // If the number of alerts is valid
         else {
             // Initialize
-            this.initializeCardTitle();
             this.initializeSpeechText();
             this.initializeCardText();
 
@@ -141,7 +145,7 @@ public class MoskitoAlertsResponse extends IntentResponse {
                                 a.getStatusOldString() + " / " + a.getValueOld() + " -> " + a.getStatusNewString() + " / " + a.getValueNew(),
                                 a.getTimeDisplay()
                         ),
-                        AlexaImageFactory.newImage(a.getStatusNewImageUrl(), 75, 75)
+                        AlexaImageFactory.newStatusImage(a.getStatusNewImageUrl())
                 ));
             }
 
@@ -164,6 +168,7 @@ public class MoskitoAlertsResponse extends IntentResponse {
     protected SpeechletResponse getResponse() {
         this.initializeNumberOfAlerts();
         this.initializeObjectRest();
+        this.initializeCardTitle();
 
         // If the user asks for too many alerts
         if (numberOfAlerts > alerts.size()) {
@@ -172,7 +177,6 @@ public class MoskitoAlertsResponse extends IntentResponse {
 
         // If number of alerts is valid
         else {
-            this.initializeCardTitle();
             this.initializeSpeechText();
             this.initializeCardText();
             return AlexaResponseFactory.newTellResponse(cardTitle, speechText.trim(), speechText.trim());
