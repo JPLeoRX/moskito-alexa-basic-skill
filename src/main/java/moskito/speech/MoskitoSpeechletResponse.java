@@ -3,7 +3,7 @@ package moskito.speech;
 import com.amazon.speech.speechlet.SpeechletResponse;
 
 import moskito.services.Responses;
-import moskito.speech.helpers.AlexaResponseFactory;
+import moskito.speech.factories.AlexaResponseFactory;
 
 /**
  * Core speechlet logic implemented for moskito speechlet

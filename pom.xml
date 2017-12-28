@@ -29,7 +29,6 @@
             <version>20171018</version>
         </dependency>
 
-
         <!-- Amazon Alexa Skills Kit -->
         <dependency>
             <groupId>com.amazon.alexa</groupId>

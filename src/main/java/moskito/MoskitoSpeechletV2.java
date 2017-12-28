@@ -3,11 +3,10 @@ package moskito;
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.*;
-import com.amazon.speech.speechlet.interfaces.system.SystemState;
-import moskito.services.AmazonUser;
-import moskito.services.IntentNames;
+import moskito.speech.helpers.AlexaSystem;
+import moskito.speech.helpers.IntentNames;
 import moskito.services.Responses;
-import moskito.speech.helpers.*;
+import moskito.speech.factories.*;
 import moskito.speech.responses.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,6 +35,10 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         // Setup locale
         Responses.initialize(requestEnvelope.getRequest().getLocale());
 
+        // Setup Alexa System
+        AlexaSystem.newCurrent(requestEnvelope);
+        LOGGER.info("Current System is: {" + AlexaSystem.getCurrent() + "}");
+
         // Redirect into welcome response
         DefaultWelcomeResponse welcomeResponse = new DefaultWelcomeResponse(requestEnvelope);
         return welcomeResponse.respond();
@@ -48,28 +51,26 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         // Setup locale
         Responses.initialize(requestEnvelope.getRequest().getLocale());
 
+        // Setup Alexa System
+        AlexaSystem.newCurrent(requestEnvelope);
+        LOGGER.info("Current System is: {" + AlexaSystem.getCurrent() + "}");
+
         // Redirect into handle intent
         return handleIntent(requestEnvelope);
     }
 
     private SpeechletResponse handleIntent(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
-        // Get system properties
-        SystemState systemState = SystemHelper.getSystemState(requestEnvelope.getContext());
-        String deviceId = systemState.getDevice().getDeviceId();
-        String apiEndpoint = systemState.getApiEndpoint();
-        String apiAccessToken = systemState.getApiAccessToken();
-        LOGGER.info("SystemState: deviceId={" + deviceId + "}, apiEndpoint={" + apiEndpoint + "}, apiAccessToken={" + apiAccessToken + "}");
-
         // If access token is null
-        if (apiAccessToken == null) {
+        if (AlexaSystem.getApiAccessToken() == null) {
             LOGGER.info("User is not authorized");
 
             // Return a link account response
             return AlexaResponseFactory.newLinkAccountResponse(Responses.get("LoginMessage"));
         }
 
+        // If the user is authorized - show the token
         else {
-            LOGGER.info("User is authorized: accessToken={" + apiAccessToken + "}");
+            LOGGER.info("User is authorized: accessToken={" + AlexaSystem.getApiAccessToken() + "}");
         }
 
         // Get intent
@@ -79,40 +80,40 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         if (intent == null) {
             LOGGER.error("Intent is null");
 
-            DefaultErrorResponse defaultErrorResponse = new DefaultErrorResponse(requestEnvelope);
-            return defaultErrorResponse.respond();
+            DefaultErrorResponse errorResponse = new DefaultErrorResponse(requestEnvelope);
+            return errorResponse.respond();
         }
 
         // Status
         else if (IntentNames.STATUS_INTENT.equals(intent.getName())) {
             LOGGER.info("Intent: " + intent.getName());
 
-            MoskitoStatusResponse moskitoStatusResponse = new MoskitoStatusResponse(requestEnvelope);
-            return moskitoStatusResponse.respond();
+            MoskitoStatusResponse statusResponse = new MoskitoStatusResponse(requestEnvelope);
+            return statusResponse.respond();
         }
 
         // Thresholds
         else if (IntentNames.THRESHOLDS_INTENT.equals(intent.getName())) {
             LOGGER.info("Intent: " + intent.getName());
 
-            MoskitoThresholdsResponse moskitoThresholdsResponse = new MoskitoThresholdsResponse(requestEnvelope);
-            return moskitoThresholdsResponse.respond();
+            MoskitoThresholdsResponse thresholdsResponse = new MoskitoThresholdsResponse(requestEnvelope);
+            return thresholdsResponse.respond();
         }
 
         // Alerts
         else if (IntentNames.ALERTS_INTENT.equals(intent.getName())) {
             LOGGER.info("Intent: " + intent.getName());
 
-            MoskitoAlertsResponse moskitoAlertsResponse = new MoskitoAlertsResponse(requestEnvelope);
-            return moskitoAlertsResponse.respond();
+            MoskitoAlertsResponse alertsResponse = new MoskitoAlertsResponse(requestEnvelope);
+            return alertsResponse.respond();
         }
 
         // User
         else if (IntentNames.USER_INTENT.equals(intent.getName())) {
             LOGGER.info("Intent: " + intent.getName());
 
-            MoskitoUserResponse moskitoUserResponse = new MoskitoUserResponse(requestEnvelope);
-            return moskitoUserResponse.respond();
+            MoskitoUserResponse userResponse = new MoskitoUserResponse(requestEnvelope);
+            return userResponse.respond();
         }
 
         // Amazon Help
@@ -127,8 +128,8 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         else {
             LOGGER.error("Intent is not recognized");
 
-            DefaultErrorResponse defaultErrorResponse = new DefaultErrorResponse(requestEnvelope);
-            return defaultErrorResponse.respond();
+            DefaultErrorResponse errorResponse = new DefaultErrorResponse(requestEnvelope);
+            return errorResponse.respond();
         }
     }
 }

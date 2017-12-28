@@ -1,4 +1,4 @@
-package moskito.services;
+package moskito.services.rest;
 
 import moskito.services.rest.helpers.ParserJSON;
 import org.apache.logging.log4j.LogManager;

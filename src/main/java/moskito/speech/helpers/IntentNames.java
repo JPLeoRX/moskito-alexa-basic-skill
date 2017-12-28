@@ -1,4 +1,4 @@
-package moskito.services;
+package moskito.speech.helpers;
 
 public class IntentNames {
     public static final String UNHANDLED_INTENT = "UnhandledIntent";

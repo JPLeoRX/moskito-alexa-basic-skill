@@ -1,4 +1,4 @@
-package moskito.speech.helpers;
+package moskito.speech.factories;
 
 import com.amazon.speech.ui.OutputSpeech;
 import com.amazon.speech.ui.PlainTextOutputSpeech;

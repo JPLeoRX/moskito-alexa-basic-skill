@@ -5,8 +5,8 @@ import com.amazon.speech.speechlet.CoreSpeechletRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.LaunchRequest;
-import moskito.services.DisplayHelper;
-import moskito.speech.helpers.AlexaResponseFactory;
+import moskito.speech.helpers.AlexaSystem;
+import moskito.speech.factories.AlexaResponseFactory;
 
 /**
  * Core response functionality
@@ -38,7 +38,7 @@ public abstract class CustomResponse<R extends CoreSpeechletRequest> {
     // Decide which response to show
     //------------------------------------------------------------------------------------------------------------------
     public SpeechletResponse respond() {
-        if (DisplayHelper.hasDisplay(requestEnvelope))
+        if (AlexaSystem.hasDisplay())
             return getResponseWithDisplay();
         else
             return getResponse();
@@ -56,6 +56,13 @@ public abstract class CustomResponse<R extends CoreSpeechletRequest> {
     protected abstract void initializeCardText();
 
     protected abstract void initializeSpeechText();
+
+    protected void defaultInitialize() {
+        this.initializeObjectRest();
+        this.initializeCardTitle();
+        this.initializeSpeechText();
+        this.initializeCardText();
+    }
     //------------------------------------------------------------------------------------------------------------------
 
 
@@ -75,18 +82,27 @@ public abstract class CustomResponse<R extends CoreSpeechletRequest> {
     protected abstract SpeechletResponse getResponse();
 
     /**
-     * Use this when the speech response follows this basic pattern
+     * Use this when the speech response follows this basic pattern (Tell)
      * @return
      */
-    protected SpeechletResponse getDefaultSpeechResponse() {
+    protected SpeechletResponse getDefaultSpeechTellResponse() {
         // Initialize
-        this.initializeObjectRest();
-        this.initializeCardTitle();
-        this.initializeSpeechText();
-        this.initializeCardText();
+        this.defaultInitialize();
 
         // Return response
         return AlexaResponseFactory.newTellResponse(cardTitle, cardText, speechText);
+    }
+
+    /**
+     * Use this when the speech response follows this basic pattern (Ask)
+     * @return
+     */
+    protected SpeechletResponse getDefaultSpeechAskResponse() {
+        // Initialize
+        this.defaultInitialize();
+
+        // Return response
+        return AlexaResponseFactory.newAskResponse(cardTitle, cardText, speechText);
     }
     //------------------------------------------------------------------------------------------------------------------
 }

@@ -4,13 +4,10 @@ import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
-import moskito.services.AmazonUser;
+import moskito.services.rest.AmazonUser;
 import moskito.services.Responses;
-import moskito.speech.helpers.AlexaDisplayResponseFactory;
-import moskito.speech.helpers.AlexaResponseFactory;
+import moskito.speech.factories.AlexaDisplayResponseFactory;
 import moskito.speech.responses.core.IntentResponse;
-
-import javax.xml.ws.Response;
 
 public class MoskitoUserResponse extends IntentResponse {
     private AmazonUser amazonUser;
@@ -63,7 +60,7 @@ public class MoskitoUserResponse extends IntentResponse {
 
     @Override
     protected SpeechletResponse getResponse() {
-        return getDefaultSpeechResponse();
+        return getDefaultSpeechTellResponse();
     }
     //------------------------------------------------------------------------------------------------------------------
 }

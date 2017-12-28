@@ -1,4 +1,4 @@
-package moskito.speech.helpers;
+package moskito.speech.factories;
 
 import com.amazon.speech.speechlet.interfaces.display.element.TripleTextContent;
 import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate2;

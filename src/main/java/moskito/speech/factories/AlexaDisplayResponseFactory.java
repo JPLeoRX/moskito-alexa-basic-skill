@@ -1,4 +1,4 @@
-package moskito.speech.helpers;
+package moskito.speech.factories;
 
 import com.amazon.speech.speechlet.Directive;
 import com.amazon.speech.speechlet.SpeechletResponse;
@@ -9,7 +9,6 @@ import com.amazon.speech.speechlet.interfaces.display.template.BodyTemplate2;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import com.amazon.speech.ui.Card;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
-import moskito.services.Responses;
 
 import java.util.List;
 

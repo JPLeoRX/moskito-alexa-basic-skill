@@ -1,4 +1,4 @@
-package moskito.speech.helpers;
+package moskito.speech.factories;
 
 import com.amazon.speech.speechlet.interfaces.display.element.PlainText;
 import com.amazon.speech.speechlet.interfaces.display.element.RichText;

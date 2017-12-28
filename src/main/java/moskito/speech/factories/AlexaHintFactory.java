@@ -1,4 +1,4 @@
-package moskito.speech.helpers;
+package moskito.speech.factories;
 
 import com.amazon.speech.speechlet.interfaces.core.Hint;
 import com.amazon.speech.speechlet.interfaces.core.PlainTextHint;

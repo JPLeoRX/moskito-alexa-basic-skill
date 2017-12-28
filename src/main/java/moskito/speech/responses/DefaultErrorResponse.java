@@ -5,7 +5,8 @@ import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import moskito.services.Responses;
-import moskito.speech.helpers.*;
+import moskito.speech.factories.*;
+import moskito.speech.helpers.HintRandomizer;
 import moskito.speech.responses.core.IntentResponse;
 
 public class DefaultErrorResponse extends IntentResponse {
@@ -60,7 +61,7 @@ public class DefaultErrorResponse extends IntentResponse {
 
     @Override
     protected SpeechletResponse getResponse() {
-        return getDefaultSpeechResponse();
+        return this.getDefaultSpeechAskResponse();
     }
     //------------------------------------------------------------------------------------------------------------------
 }

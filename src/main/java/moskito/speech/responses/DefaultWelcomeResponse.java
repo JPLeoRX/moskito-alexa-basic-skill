@@ -4,8 +4,8 @@ import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.*;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import moskito.services.Responses;
-import moskito.speech.helpers.*;
-import moskito.speech.responses.core.IntentResponse;
+import moskito.speech.factories.*;
+import moskito.speech.helpers.HintRandomizer;
 import moskito.speech.responses.core.LaunchResponse;
 
 public class DefaultWelcomeResponse extends LaunchResponse {
@@ -60,13 +60,7 @@ public class DefaultWelcomeResponse extends LaunchResponse {
 
     @Override
     protected SpeechletResponse getResponse() {
-        // Initialize
-        this.initializeCardTitle();
-        this.initializeSpeechText();
-        this.initializeCardText();
-
-        // Return response
-        return AlexaResponseFactory.newAskResponse(cardTitle, cardText, speechText);
+        return this.getDefaultSpeechAskResponse();
     }
     //------------------------------------------------------------------------------------------------------------------
 }

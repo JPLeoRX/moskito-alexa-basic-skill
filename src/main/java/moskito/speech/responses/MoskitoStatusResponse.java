@@ -8,7 +8,7 @@ import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import moskito.services.AppsURL;
 import moskito.services.Responses;
 import moskito.services.rest.StatusRest;
-import moskito.speech.helpers.*;
+import moskito.speech.factories.*;
 import moskito.speech.responses.core.IntentResponse;
 
 public class MoskitoStatusResponse extends IntentResponse {
@@ -65,14 +65,7 @@ public class MoskitoStatusResponse extends IntentResponse {
 
     @Override
     protected SpeechletResponse getResponse() {
-        // Initialize
-        this.initializeObjectRest();
-        this.initializeCardTitle();
-        this.initializeCardText();
-        this.initializeSpeechText();
-
-        // Return response
-        return AlexaResponseFactory.newTellResponse(cardTitle, cardText, speechText);
+        return this.getDefaultSpeechTellResponse();
     }
     //------------------------------------------------------------------------------------------------------------------
 }

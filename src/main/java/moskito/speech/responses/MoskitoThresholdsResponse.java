@@ -13,7 +13,7 @@ import moskito.services.AppsURL;
 import moskito.services.Responses;
 import moskito.services.rest.ThresholdsRest;
 import moskito.services.rest.basic_entities.Threshold;
-import moskito.speech.helpers.*;
+import moskito.speech.factories.*;
 import moskito.speech.responses.core.IntentResponse;
 
 import java.util.LinkedList;
@@ -118,7 +118,7 @@ public class MoskitoThresholdsResponse extends IntentResponse {
 
     @Override
     protected SpeechletResponse getResponse() {
-        return getDefaultSpeechResponse();
+        return getDefaultSpeechTellResponse();
     }
     //------------------------------------------------------------------------------------------------------------------
 }
