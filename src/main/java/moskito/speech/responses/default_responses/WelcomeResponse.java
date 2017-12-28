@@ -6,7 +6,7 @@ import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import moskito.services.Responses;
 import moskito.speech.factories.*;
 import moskito.speech.helpers.HintRandomizer;
-import moskito.speech.responses.core_logic.LaunchResponse;
+import moskito.speech.responses.core_response_logic.LaunchResponse;
 
 /**
  * Response to "alexa, open moskito" command

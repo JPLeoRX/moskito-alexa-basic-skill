@@ -7,7 +7,7 @@ import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import moskito.services.rest.AmazonUser;
 import moskito.services.Responses;
 import moskito.speech.factories.AlexaDisplayResponseFactory;
-import moskito.speech.responses.core_logic.IntentResponse;
+import moskito.speech.responses.core_response_logic.IntentResponse;
 
 /**
  * Response to "alexa, ask moskito about my user" command

@@ -1,4 +1,4 @@
-package moskito.speech.responses.core_logic;
+package moskito.speech.responses.core_response_logic;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.IntentRequest;

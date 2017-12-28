@@ -15,10 +15,7 @@ public class LocalizationTest {
         a.load(new Locale("en", "US"));
         Assert.assertEquals(true, a.get("Title").equals("MoSKito"));
 
-        a.load(new Locale("ru", "RU"));
-        Assert.assertEquals(true, a.get("Title").equals("MoSKito"));
-
-        a.load(new Locale("jp", "JP"));
+        a.load(new Locale("de", "DE"));
         Assert.assertEquals(true, a.get("Title").equals("MoSKito"));
     }
 }

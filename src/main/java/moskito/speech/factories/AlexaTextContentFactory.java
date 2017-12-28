@@ -31,6 +31,16 @@ public final class AlexaTextContentFactory {
      * Body Template 2
      * @param primaryText primary text
      * @param secondaryText secondary text
+     * @return new text content for body template 2
+     */
+    public static BodyTemplate2.TextContent newTextContent2(String primaryText, String secondaryText) {
+        return newTextContent2(primaryText, secondaryText, "");
+    }
+
+    /**
+     * Body Template 2
+     * @param primaryText primary text
+     * @param secondaryText secondary text
      * @param tertiaryText tertiary text
      * @return new text content for body template 2
      */

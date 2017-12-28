@@ -18,6 +18,8 @@ import org.apache.logging.log4j.Logger;
 public class MoskitoSpeechletV2 implements SpeechletV2 {
     private static final Logger LOGGER = LogManager.getLogger();
 
+    // Speechelt methods
+    //------------------------------------------------------------------------------------------------------------------
     @Override
     public void onSessionStarted(SpeechletRequestEnvelope<SessionStartedRequest> requestEnvelope) {
         LOGGER.info("onSessionEnded requestId={}, sessionId={}", requestEnvelope.getRequest().getRequestId(), requestEnvelope.getSession().getSessionId());
@@ -59,7 +61,12 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         // Redirect into handle intent
         return handleIntent(requestEnvelope);
     }
+    //------------------------------------------------------------------------------------------------------------------
 
+
+
+    // Intents
+    //------------------------------------------------------------------------------------------------------------------
     private SpeechletResponse handleIntent(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
         // If access token is null
         if (AlexaSystem.getApiAccessToken() == null) {
@@ -133,4 +140,5 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
             return errorResponse.respond();
         }
     }
+    //------------------------------------------------------------------------------------------------------------------
 }
