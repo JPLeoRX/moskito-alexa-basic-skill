@@ -47,7 +47,7 @@ public class MoskitoAlertsResponse extends IntentResponse {
         // If there is such slot
         if (slot != null)
             // If this slot has a value
-            if (slot.getValue() != null)
+            if (slot.getValue() != null && !slot.getValue().equalsIgnoreCase("?"))
                 // We will use this value in our call
                 numberOfAlerts = Integer.valueOf(slot.getValue());
     }
