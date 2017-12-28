@@ -25,7 +25,7 @@ public final class StringHelper {
      * @return verbal representation of the month
      */
     public static String monthString(int month) {
-        return Responses.get("m" + String.format("%02d", month));
+        return Responses.get("HelperMonth" + String.format("%02d", month));
     }
 
     /**

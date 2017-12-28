@@ -1,4 +1,4 @@
-package moskito.speech.responses.core;
+package moskito.speech.responses.core_logic;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.IntentRequest;
@@ -11,5 +11,10 @@ import com.amazon.speech.speechlet.IntentRequest;
 public abstract class IntentResponse extends CustomResponse<IntentRequest> {
     public IntentResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
         super(requestEnvelope);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString().replace("CustomResponse: ", "IntentResponse: ");
     }
 }

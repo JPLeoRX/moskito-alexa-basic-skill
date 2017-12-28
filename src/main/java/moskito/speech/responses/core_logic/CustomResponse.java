@@ -1,4 +1,4 @@
-package moskito.speech.responses.core;
+package moskito.speech.responses.core_logic;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.CoreSpeechletRequest;
@@ -8,6 +8,8 @@ import com.amazon.speech.speechlet.LaunchRequest;
 import moskito.speech.helpers.AlexaSystem;
 import moskito.speech.factories.AlexaResponseFactory;
 
+import java.util.Objects;
+
 /**
  * Core response functionality
  *
@@ -16,6 +18,10 @@ import moskito.speech.factories.AlexaResponseFactory;
  * We use pre-defined intent and launch responses {@link IntentResponse} {@link LaunchResponse}
  *
  * @param <R> either {@link IntentRequest} or {@link LaunchRequest}
+ *
+ * Do nor extend this class directly, better use {@link IntentResponse} and {@link LaunchResponse}
+ *
+ * @author Leo Ertuna
  */
 public abstract class CustomResponse<R extends CoreSpeechletRequest> {
     // Request enveloped passed from the speechlet
@@ -82,7 +88,7 @@ public abstract class CustomResponse<R extends CoreSpeechletRequest> {
     protected abstract SpeechletResponse getResponse();
 
     /**
-     * Use this when the speech response follows this basic pattern (Tell)
+     * Use this when the speech (no display) response follows this basic pattern (Tell)
      * @return
      */
     protected SpeechletResponse getDefaultSpeechTellResponse() {
@@ -94,7 +100,7 @@ public abstract class CustomResponse<R extends CoreSpeechletRequest> {
     }
 
     /**
-     * Use this when the speech response follows this basic pattern (Ask)
+     * Use this when the speech (no display) response follows this basic pattern (Ask)
      * @return
      */
     protected SpeechletResponse getDefaultSpeechAskResponse() {
@@ -103,6 +109,32 @@ public abstract class CustomResponse<R extends CoreSpeechletRequest> {
 
         // Return response
         return AlexaResponseFactory.newAskResponse(cardTitle, cardText, speechText);
+    }
+    //------------------------------------------------------------------------------------------------------------------
+
+
+
+    // Others
+    //------------------------------------------------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return "CustomResponse: requestEnvelope={" + requestEnvelope + "}, cardTitle={" + cardTitle + "}, cardText={" + cardText + "}, speechText={" + speechText + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomResponse<?> that = (CustomResponse<?>) o;
+        return Objects.equals(requestEnvelope, that.requestEnvelope) &&
+                Objects.equals(cardTitle, that.cardTitle) &&
+                Objects.equals(cardText, that.cardText) &&
+                Objects.equals(speechText, that.speechText);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(requestEnvelope, cardTitle, cardText, speechText);
     }
     //------------------------------------------------------------------------------------------------------------------
 }

@@ -8,6 +8,7 @@ import moskito.speech.helpers.IntentNames;
 import moskito.services.Responses;
 import moskito.speech.factories.*;
 import moskito.speech.responses.*;
+import moskito.speech.responses.default_responses.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,7 +41,7 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         LOGGER.info("Current System is: {" + AlexaSystem.getCurrent() + "}");
 
         // Redirect into welcome response
-        DefaultWelcomeResponse welcomeResponse = new DefaultWelcomeResponse(requestEnvelope);
+        WelcomeResponse welcomeResponse = new WelcomeResponse(requestEnvelope);
         return welcomeResponse.respond();
     }
 
@@ -80,7 +81,7 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         if (intent == null) {
             LOGGER.error("Intent is null");
 
-            DefaultErrorResponse errorResponse = new DefaultErrorResponse(requestEnvelope);
+            ErrorResponse errorResponse = new ErrorProblemResponse(requestEnvelope);
             return errorResponse.respond();
         }
 
@@ -120,7 +121,7 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         else if (IntentNames.AMAZON_HELP_INTENT.equals(intent.getName())) {
             LOGGER.info("Intent: " + intent.getName());
 
-            DefaultHelpResponse helpResponse = new DefaultHelpResponse(requestEnvelope);
+            HelpResponse helpResponse = new HelpResponse(requestEnvelope);
             return helpResponse.respond();
         }
 
@@ -128,7 +129,7 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         else {
             LOGGER.error("Intent is not recognized");
 
-            DefaultErrorResponse errorResponse = new DefaultErrorResponse(requestEnvelope);
+            ErrorResponse errorResponse = new ErrorCommandResponse(requestEnvelope);
             return errorResponse.respond();
         }
     }

@@ -1,4 +1,4 @@
-package moskito.speech.responses;
+package moskito.speech.responses.default_responses;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.IntentRequest;
@@ -7,10 +7,15 @@ import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import moskito.services.Responses;
 import moskito.speech.factories.*;
 import moskito.speech.helpers.HintRandomizer;
-import moskito.speech.responses.core.IntentResponse;
+import moskito.speech.responses.core_logic.IntentResponse;
 
-public class DefaultHelpResponse extends IntentResponse {
-    public DefaultHelpResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
+/**
+ * Basic response to an error
+ *
+ * @author Leo Ertuna
+ */
+public abstract class ErrorResponse extends IntentResponse {
+    public ErrorResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
         super(requestEnvelope);
     }
 
@@ -18,12 +23,12 @@ public class DefaultHelpResponse extends IntentResponse {
     //------------------------------------------------------------------------------------------------------------------
     @Override
     protected void initializeObjectRest() {
-
+        // no rest object
     }
 
     @Override
     protected void initializeCardTitle() {
-        this.cardTitle = Responses.get("HelpTitle");
+        this.cardTitle = Responses.get("ErrorTitle");
     }
 
     @Override
@@ -32,10 +37,9 @@ public class DefaultHelpResponse extends IntentResponse {
     }
 
     @Override
-    protected void initializeSpeechText() {
-        this.speechText = Responses.get("HelpMessage");
-    }
+    protected abstract void initializeSpeechText();
     //------------------------------------------------------------------------------------------------------------------
+
 
 
     // Response
@@ -47,10 +51,12 @@ public class DefaultHelpResponse extends IntentResponse {
         this.initializeSpeechText();
         this.initializeCardText();
 
+        // Return response
         return AlexaDisplayResponseFactory.newBodyTemplate2andHintResponse(
                 cardTitle, cardText, speechText,
-                speechText, "","",
-                null, null, Template.BackButtonBehavior.HIDDEN,
+                speechText, "", "",
+                null, null,
+                Template.BackButtonBehavior.HIDDEN,
                 Responses.get(HintRandomizer.getHintKey()),
                 false
         );

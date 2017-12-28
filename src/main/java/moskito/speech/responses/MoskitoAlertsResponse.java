@@ -16,11 +16,16 @@ import moskito.services.Responses;
 import moskito.speech.factories.*;
 import moskito.services.rest.AlertsRest;
 import moskito.services.rest.basic_entities.Alert;
-import moskito.speech.responses.core.IntentResponse;
+import moskito.speech.responses.core_logic.IntentResponse;
 
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Response to "alexa, ask moskito about alerts" command
+ *
+ * @author Leo Ertuna
+ */
 public class MoskitoAlertsResponse extends IntentResponse {
     private int numberOfAlerts = 1;
     private AlertsRest alertsRest;

@@ -14,11 +14,16 @@ import moskito.services.Responses;
 import moskito.services.rest.ThresholdsRest;
 import moskito.services.rest.basic_entities.Threshold;
 import moskito.speech.factories.*;
-import moskito.speech.responses.core.IntentResponse;
+import moskito.speech.responses.core_logic.IntentResponse;
 
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Response to "alexa, ask moskito about thresholds" command
+ *
+ * @author Leo Ertuna
+ */
 public class MoskitoThresholdsResponse extends IntentResponse {
     private ThresholdsRest thresholdsRest;
     private List<Threshold> thresholds;

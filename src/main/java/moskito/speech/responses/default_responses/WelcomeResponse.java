@@ -1,4 +1,4 @@
-package moskito.speech.responses;
+package moskito.speech.responses.default_responses;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.*;
@@ -6,10 +6,15 @@ import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import moskito.services.Responses;
 import moskito.speech.factories.*;
 import moskito.speech.helpers.HintRandomizer;
-import moskito.speech.responses.core.LaunchResponse;
+import moskito.speech.responses.core_logic.LaunchResponse;
 
-public class DefaultWelcomeResponse extends LaunchResponse {
-    public DefaultWelcomeResponse(SpeechletRequestEnvelope<LaunchRequest> requestEnvelope) {
+/**
+ * Response to "alexa, open moskito" command
+ *
+ * @author Leo Ertuna
+ */
+public class WelcomeResponse extends LaunchResponse {
+    public WelcomeResponse(SpeechletRequestEnvelope<LaunchRequest> requestEnvelope) {
         super(requestEnvelope);
     }
 
@@ -17,7 +22,7 @@ public class DefaultWelcomeResponse extends LaunchResponse {
     //------------------------------------------------------------------------------------------------------------------
     @Override
     protected void initializeObjectRest() {
-
+        // no rest object
     }
 
     @Override

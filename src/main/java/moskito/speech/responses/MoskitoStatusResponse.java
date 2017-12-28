@@ -9,8 +9,13 @@ import moskito.services.AppsURL;
 import moskito.services.Responses;
 import moskito.services.rest.StatusRest;
 import moskito.speech.factories.*;
-import moskito.speech.responses.core.IntentResponse;
+import moskito.speech.responses.core_logic.IntentResponse;
 
+/**
+ * Response to "alexa, ask moskito to check my app status" command
+ *
+ * @author Leo Ertuna
+ */
 public class MoskitoStatusResponse extends IntentResponse {
     private StatusRest status;
 
