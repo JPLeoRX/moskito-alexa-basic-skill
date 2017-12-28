@@ -66,7 +66,15 @@ public class MoskitoAlertsResponse extends IntentResponse {
 
     @Override
     protected void initializeCardText() {
-        this.cardText = speechText;
+//        cardText = speechLine1 + "\n";
+//        for (int i = 0; i < numberOfAlerts; i++) {
+//            Alert a = alerts.get(i);
+//            String oldS = String.format("|%-15s|", a.getStatusOldString() + " / " + a.getValueOld());
+//            String newS = String.format("|%-15s|", a.getStatusNewString() + " / " + a.getValueNew());
+//            cardText += (i + 1) + ") \t" + oldS + " \t " + newS + "   \t    \t " + a.getTimeDisplay() + "\n";
+//        }
+
+        cardText = speechText;
     }
 
     @Override
