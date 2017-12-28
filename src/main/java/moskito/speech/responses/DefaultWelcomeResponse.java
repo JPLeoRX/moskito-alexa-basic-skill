@@ -54,7 +54,7 @@ public class DefaultWelcomeResponse extends LaunchResponse {
                 null, null,
                 Template.BackButtonBehavior.HIDDEN,
                 Responses.get(HintRandomizer.getHintKey()),
-                true
+                false
         );
     }
 

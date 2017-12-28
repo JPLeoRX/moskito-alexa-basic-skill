@@ -2,14 +2,11 @@ package moskito;
 
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.slu.Intent;
-import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.*;
-import com.amazon.speech.speechlet.interfaces.system.System;
 import com.amazon.speech.speechlet.interfaces.system.SystemState;
 import moskito.services.AmazonUser;
 import moskito.services.IntentNames;
 import moskito.services.Responses;
-import moskito.speech.MoskitoSpeechletResponse;
 import moskito.speech.helpers.*;
 import moskito.speech.responses.*;
 import org.apache.logging.log4j.LogManager;
@@ -73,7 +70,6 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
 
         else {
             LOGGER.info("User is authorized: accessToken={" + apiAccessToken + "}");
-            AmazonUser.current = new AmazonUser(requestEnvelope.getSession().getUser().getAccessToken());
         }
 
         // Get intent
@@ -111,15 +107,12 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
             return moskitoAlertsResponse.respond();
         }
 
-        // Login
-        else if (IntentNames.LOGIN_INTENT.equals(intent.getName())) {
+        // User
+        else if (IntentNames.USER_INTENT.equals(intent.getName())) {
             LOGGER.info("Intent: " + intent.getName());
-            return AlexaResponseFactory.newResponse(
-                    AlexaSpeechFactory.newPlainTextOutputSpeech("Login"),
-                    AlexaCardFactory.newLinkAccountCard(),
-                    null,
-                    true
-            );
+
+            MoskitoUserResponse moskitoUserResponse = new MoskitoUserResponse(requestEnvelope);
+            return moskitoUserResponse.respond();
         }
 
         // Amazon Help

@@ -6,6 +6,7 @@ import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.LaunchRequest;
 import moskito.services.DisplayHelper;
+import moskito.speech.helpers.AlexaResponseFactory;
 
 /**
  * Core response functionality
@@ -72,5 +73,20 @@ public abstract class CustomResponse<R extends CoreSpeechletRequest> {
      * @return
      */
     protected abstract SpeechletResponse getResponse();
+
+    /**
+     * Use this when the speech response follows this basic pattern
+     * @return
+     */
+    protected SpeechletResponse getDefaultSpeechResponse() {
+        // Initialize
+        this.initializeObjectRest();
+        this.initializeCardTitle();
+        this.initializeSpeechText();
+        this.initializeCardText();
+
+        // Return response
+        return AlexaResponseFactory.newTellResponse(cardTitle, cardText, speechText);
+    }
     //------------------------------------------------------------------------------------------------------------------
 }

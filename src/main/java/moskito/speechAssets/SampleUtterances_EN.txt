@@ -29,6 +29,7 @@ AlertsIntent alert
 AlertsIntent last alert
 AlertsIntent last {Number} alerts
 
-LoginIntent login
-LoginIntent check my login
-LoginIntent what is my login status
+UserIntent my user
+UserIntent user
+UserIntent my info
+UserIntent info

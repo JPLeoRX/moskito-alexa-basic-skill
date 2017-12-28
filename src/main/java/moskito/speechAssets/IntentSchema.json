@@ -10,7 +10,7 @@
       "intent": "ThresholdsIntent"
     },
     {
-      "intent": "LoginIntent"
+      "intent": "UserIntent"
     },
     {
       "intent": "AlertsIntent",

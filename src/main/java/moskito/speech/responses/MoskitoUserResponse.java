@@ -4,12 +4,18 @@ import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
+import moskito.services.AmazonUser;
 import moskito.services.Responses;
-import moskito.speech.helpers.*;
+import moskito.speech.helpers.AlexaDisplayResponseFactory;
+import moskito.speech.helpers.AlexaResponseFactory;
 import moskito.speech.responses.core.IntentResponse;
 
-public class DefaultHelpResponse extends IntentResponse {
-    public DefaultHelpResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
+import javax.xml.ws.Response;
+
+public class MoskitoUserResponse extends IntentResponse {
+    private AmazonUser amazonUser;
+
+    public MoskitoUserResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
         super(requestEnvelope);
     }
 
@@ -17,12 +23,12 @@ public class DefaultHelpResponse extends IntentResponse {
     //------------------------------------------------------------------------------------------------------------------
     @Override
     protected void initializeObjectRest() {
-
+        this.amazonUser = new AmazonUser(requestEnvelope.getSession().getUser().getAccessToken());
     }
 
     @Override
     protected void initializeCardTitle() {
-        this.cardTitle = Responses.get("HelpTitle");
+        this.cardTitle = Responses.get("UserResponseTitle");
     }
 
     @Override
@@ -32,27 +38,27 @@ public class DefaultHelpResponse extends IntentResponse {
 
     @Override
     protected void initializeSpeechText() {
-        this.speechText = Responses.get("HelpMessage");
+        this.speechText = Responses.get("UserResponseMessage").replace("${userName}", amazonUser.getName()).replace("${email}", amazonUser.getEmail());
     }
     //------------------------------------------------------------------------------------------------------------------
 
 
-    // Response
+
+    // Responses
     //------------------------------------------------------------------------------------------------------------------
     @Override
     protected SpeechletResponse getResponseWithDisplay() {
         // Initialize
+        this.initializeObjectRest();
         this.initializeCardTitle();
         this.initializeSpeechText();
         this.initializeCardText();
 
-        return AlexaDisplayResponseFactory.newBodyTemplate2andHintResponse(
+        // Return response
+        return AlexaDisplayResponseFactory.newBodyTemplate2Response(
                 cardTitle, cardText, speechText,
-                speechText, "","",
-                null, null, Template.BackButtonBehavior.HIDDEN,
-                Responses.get(HintRandomizer.getHintKey()),
-                false
-        );
+                "Name: " + amazonUser.getName(), "E-mail: " + amazonUser.getEmail(), "",
+                null, null, Template.BackButtonBehavior.HIDDEN, true);
     }
 
     @Override

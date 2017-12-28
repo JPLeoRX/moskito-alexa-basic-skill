@@ -54,19 +54,13 @@ public class DefaultErrorResponse extends IntentResponse {
                 null, null,
                 Template.BackButtonBehavior.HIDDEN,
                 Responses.get(HintRandomizer.getHintKey()),
-                true
+                false
         );
     }
 
     @Override
     protected SpeechletResponse getResponse() {
-        // Initialize
-        this.initializeCardTitle();
-        this.initializeSpeechText();
-        this.initializeCardText();
-
-        // Return response
-        return AlexaResponseFactory.newAskResponse(cardTitle, cardText, speechText);
+        return getDefaultSpeechResponse();
     }
     //------------------------------------------------------------------------------------------------------------------
 }

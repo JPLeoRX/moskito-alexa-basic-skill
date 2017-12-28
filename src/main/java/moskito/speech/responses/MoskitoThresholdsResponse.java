@@ -118,14 +118,7 @@ public class MoskitoThresholdsResponse extends IntentResponse {
 
     @Override
     protected SpeechletResponse getResponse() {
-        // Initialize
-        this.initializeObjectRest();
-        this.initializeCardTitle();
-        this.initializeSpeechText();
-        this.initializeCardText();
-
-        // Return response
-        return AlexaResponseFactory.newTellResponse(cardTitle, cardText, speechText);
+        return getDefaultSpeechResponse();
     }
     //------------------------------------------------------------------------------------------------------------------
 }

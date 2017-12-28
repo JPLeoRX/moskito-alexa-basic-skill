@@ -1,30 +1,25 @@
 package moskito.services;
 
 import moskito.services.rest.helpers.ParserJSON;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class AmazonUser {
-    public static AmazonUser current;
-    private String accessToken;
+public final class AmazonUser {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private String name;
     private String email;
 
     public AmazonUser(String accessToken) {
-        this.accessToken = accessToken;
-        this.read();
+        this.read(accessToken);
+        LOGGER.info("Created {" + this + "}");
     }
 
-    private void read() {
-        try {
-            ParserJSON parserJSON = new ParserJSON("https://api.amazon.com/user/profile",
-                    "Authorization", "bearer " + accessToken);
-
-            this.name = parserJSON.getJsonObject().get("name").toString();
-            this.email = parserJSON.getJsonObject().get("email").toString();
-        }
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void read(String accessToken) {
+        ParserJSON parserJSON = new ParserJSON("https://api.amazon.com/user/profile",
+                "Authorization", "bearer " + accessToken);
+        this.name = parserJSON.getJsonObject().get("name").toString();
+        this.email = parserJSON.getJsonObject().get("email").toString();
     }
 
     public String getName() {
@@ -33,5 +28,10 @@ public class AmazonUser {
 
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    public String toString() {
+        return "AmazonUser:  name={" + name + "}, email={" + email + "}";
     }
 }
