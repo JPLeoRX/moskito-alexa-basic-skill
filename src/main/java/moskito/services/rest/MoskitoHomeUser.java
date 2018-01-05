@@ -1,5 +1,6 @@
 package moskito.services.rest;
 
+import moskito.services.MoskitoHomeRestURLs;
 import moskito.services.rest.helpers.ParserJSON;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +16,7 @@ public class MoskitoHomeUser {
     }
 
     private void read(String accessToken) {
-        ParserJSON parserJSON = new ParserJSON("https://adorable-francis.bespoken.link/api/user/" + accessToken + "/app");
+        ParserJSON parserJSON = new ParserJSON(MoskitoHomeRestURLs.USER_APP_URL.replace("${accessToken}", accessToken));
         appUrl = parserJSON.getJsonObject().get("app_url").toString();
     }
 

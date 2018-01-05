@@ -3,6 +3,7 @@ package moskito;
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.*;
+import moskito.services.rest.MoskitoHomeTokenVerification;
 import moskito.speech.helpers.AlexaSystem;
 import moskito.speech.helpers.IntentNames;
 import moskito.services.Responses;
@@ -68,8 +69,11 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
     // Intents
     //------------------------------------------------------------------------------------------------------------------
     private SpeechletResponse handleIntent(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
-        // If access token is null
-        if (AlexaSystem.getApiAccessToken() == null) {
+        // Verify user token
+        MoskitoHomeTokenVerification verification = new MoskitoHomeTokenVerification(requestEnvelope.getSession().getUser().getAccessToken());
+
+        // If user is not authorized
+        if (!verification.isValid()) {
             LOGGER.info("User is not authorized");
 
             // Return a link account response
@@ -120,15 +124,8 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         else if (IntentNames.USER_INTENT.equals(intent.getName())) {
             LOGGER.info("Intent: " + intent.getName());
 
-            try {
-                MoskitoUserResponse userResponse = new MoskitoUserResponse(requestEnvelope);
-                return userResponse.respond();
-            }
-
-            catch (Exception e) {
-                // Return a link account response
-                return AlexaResponseFactory.newLinkAccountResponse(Responses.get("LoginMessage"));
-            }
+            MoskitoUserResponse userResponse = new MoskitoUserResponse(requestEnvelope);
+            return userResponse.respond();
         }
 
         // Amazon Help
