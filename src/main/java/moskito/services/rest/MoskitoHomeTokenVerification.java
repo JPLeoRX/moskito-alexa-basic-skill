@@ -17,7 +17,17 @@ public class MoskitoHomeTokenVerification {
     }
 
     private void read(String accessToken) {
-        ParserJSON parserJSON = new ParserJSON(MoskitoHomeRestURLs.TOKEN_VERIFICATION_URL.replace("${accessToken}", accessToken));
+        String thePath = MoskitoHomeRestURLs.TOKEN_VERIFICATION_URL.replace("${accessToken}", accessToken);
+
+        while (thePath.contains(" "))
+            thePath = thePath.replace(" ","%20");
+
+        while (thePath.contains("|"))
+            thePath = thePath.replace("|", "%7C");
+
+        LOGGER.info("ENCODED URL : " + thePath);
+
+        ParserJSON parserJSON = new ParserJSON(thePath);
         valid = parserJSON.getJsonObject().getBoolean("valid");
     }
 
