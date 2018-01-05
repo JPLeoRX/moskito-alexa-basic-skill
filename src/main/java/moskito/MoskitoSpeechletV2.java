@@ -120,8 +120,15 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
         else if (IntentNames.USER_INTENT.equals(intent.getName())) {
             LOGGER.info("Intent: " + intent.getName());
 
-            MoskitoUserResponse userResponse = new MoskitoUserResponse(requestEnvelope);
-            return userResponse.respond();
+            try {
+                MoskitoUserResponse userResponse = new MoskitoUserResponse(requestEnvelope);
+                return userResponse.respond();
+            }
+
+            catch (Exception e) {
+                // Return a link account response
+                return AlexaResponseFactory.newLinkAccountResponse(Responses.get("LoginMessage"));
+            }
         }
 
         // Amazon Help

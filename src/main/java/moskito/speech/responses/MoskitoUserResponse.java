@@ -6,6 +6,7 @@ import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.speechlet.interfaces.display.template.Template;
 import moskito.services.rest.AmazonUser;
 import moskito.services.Responses;
+import moskito.services.rest.MoskitoHomeUser;
 import moskito.speech.factories.AlexaDisplayResponseFactory;
 import moskito.speech.responses.core_response_logic.IntentResponse;
 
@@ -15,7 +16,7 @@ import moskito.speech.responses.core_response_logic.IntentResponse;
  * @author Leo Ertuna
  */
 public class MoskitoUserResponse extends IntentResponse {
-    private AmazonUser amazonUser;
+    private MoskitoHomeUser moskitoHomeUser;
 
     public MoskitoUserResponse(SpeechletRequestEnvelope<IntentRequest> requestEnvelope) {
         super(requestEnvelope);
@@ -25,7 +26,7 @@ public class MoskitoUserResponse extends IntentResponse {
     //------------------------------------------------------------------------------------------------------------------
     @Override
     protected void initializeObjectRest() {
-        this.amazonUser = new AmazonUser(requestEnvelope.getSession().getUser().getAccessToken());
+        this.moskitoHomeUser = new MoskitoHomeUser(requestEnvelope.getSession().getUser().getAccessToken());
     }
 
     @Override
@@ -40,7 +41,7 @@ public class MoskitoUserResponse extends IntentResponse {
 
     @Override
     protected void initializeSpeechText() {
-        this.speechText = Responses.get("UserResponseMessage").replace("${userName}", amazonUser.getName()).replace("${email}", amazonUser.getEmail());
+        this.speechText = Responses.get("UserResponseMessage").replace("${appUrl}", moskitoHomeUser.getAppUrl());
     }
     //------------------------------------------------------------------------------------------------------------------
 
@@ -59,7 +60,7 @@ public class MoskitoUserResponse extends IntentResponse {
         // Return response
         return AlexaDisplayResponseFactory.newBodyTemplate2Response(
                 cardTitle, cardText, speechText,
-                "Name: " + amazonUser.getName(), "E-mail: " + amazonUser.getEmail(), "",
+                "App URL: " + moskitoHomeUser.getAppUrl(), "", "",
                 null, null, Template.BackButtonBehavior.HIDDEN, true);
     }
 
