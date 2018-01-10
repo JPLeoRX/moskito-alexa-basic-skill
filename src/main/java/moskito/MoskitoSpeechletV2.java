@@ -3,7 +3,9 @@ package moskito;
 import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.*;
+import moskito.services.AppsURL;
 import moskito.services.rest.MoskitoHomeTokenVerification;
+import moskito.services.rest.MoskitoHomeUser;
 import moskito.speech.helpers.AlexaSystem;
 import moskito.speech.helpers.IntentNames;
 import moskito.services.Responses;
@@ -80,9 +82,14 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
             return AlexaResponseFactory.newLinkAccountResponse(Responses.get("LoginMessage"));
         }
 
-        // If the user is authorized - show the token
+        // If the user is authorized
         else {
-            LOGGER.info("User is authorized: accessToken={" + AlexaSystem.getApiAccessToken() + "}");
+            // Print access token
+            LOGGER.info("User is authorized: accessToken={" + requestEnvelope.getSession().getUser().getAccessToken() + "}");
+
+            // Save the current user's app URL
+            MoskitoHomeUser user = new MoskitoHomeUser(requestEnvelope.getSession().getUser().getAccessToken());
+            AppsURL.current = user.getAppUrl();
         }
 
         // Get intent
@@ -126,6 +133,14 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
 
             MoskitoUserResponse userResponse = new MoskitoUserResponse(requestEnvelope);
             return userResponse.respond();
+        }
+
+        // Login/Switch User
+        else if (IntentNames.LOGIN_INTENT.equals(intent.getName())) {
+            LOGGER.info("Intent: " + intent.getName());
+
+            // Return a link account response
+            return AlexaResponseFactory.newLinkAccountResponse(Responses.get("LoginMessage"));
         }
 
         // Amazon Help

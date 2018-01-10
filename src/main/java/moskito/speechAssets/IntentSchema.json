@@ -13,6 +13,9 @@
       "intent": "UserIntent"
     },
     {
+      "intent": "LoginIntent"
+    },
+    {
       "intent": "AlertsIntent",
       "slots": [
         {

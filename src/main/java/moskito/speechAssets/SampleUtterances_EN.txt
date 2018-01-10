@@ -33,3 +33,6 @@ UserIntent my user
 UserIntent user
 UserIntent my info
 UserIntent info
+
+LoginIntent login
+LoginIntent change user
