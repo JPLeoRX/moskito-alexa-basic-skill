@@ -14,6 +14,11 @@ import moskito.speech.responses.*;
 import moskito.speech.responses.default_responses.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.util.ExecutorServices;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Leo Ertuna
@@ -25,6 +30,15 @@ public class MoskitoSpeechletV2 implements SpeechletV2 {
     //------------------------------------------------------------------------------------------------------------------
     @Override
     public void onSessionStarted(SpeechletRequestEnvelope<SessionStartedRequest> requestEnvelope) {
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                LOGGER.info("Thread is running");
+            }
+        }, 0, 15, TimeUnit.SECONDS);
+
+
         LOGGER.info("onSessionEnded requestId={}, sessionId={}", requestEnvelope.getRequest().getRequestId(), requestEnvelope.getSession().getSessionId());
     }
 
