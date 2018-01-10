@@ -10,6 +10,7 @@ import moskito.speech.helpers.AlexaSystem;
 import moskito.speech.helpers.IntentNames;
 import moskito.services.Responses;
 import moskito.speech.factories.*;
+import moskito.speech.notifications.ThresholdNotification;
 import moskito.speech.responses.*;
 import moskito.speech.responses.default_responses.*;
 import org.apache.logging.log4j.LogManager;
@@ -25,20 +26,13 @@ import java.util.concurrent.TimeUnit;
  */
 public class MoskitoSpeechletV2 implements SpeechletV2 {
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final ThresholdNotification notification = new ThresholdNotification();
 
     // Speechelt methods
     //------------------------------------------------------------------------------------------------------------------
     @Override
     public void onSessionStarted(SpeechletRequestEnvelope<SessionStartedRequest> requestEnvelope) {
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleWithFixedDelay(new Runnable() {
-            @Override
-            public void run() {
-                LOGGER.info("Thread is running");
-            }
-        }, 0, 15, TimeUnit.SECONDS);
-
-
+        notification.startThreads();
         LOGGER.info("onSessionEnded requestId={}, sessionId={}", requestEnvelope.getRequest().getRequestId(), requestEnvelope.getSession().getSessionId());
     }
 

@@ -50,6 +50,10 @@ public final class Threshold {
         return status.getImageUrl();
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public String getValue() {
         return StringHelper.trimValue(value);
     }
@@ -67,16 +71,14 @@ public final class Threshold {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Threshold)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Threshold threshold = (Threshold) o;
-        return Objects.equals(name, threshold.name) &&
-                status == threshold.status &&
-                Objects.equals(value, threshold.value);
+        return Objects.equals(name, threshold.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, status, value);
+        return Objects.hash(name);
     }
     //------------------------------------------------------------------------------------------------------------------
 }
